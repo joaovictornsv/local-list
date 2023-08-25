@@ -31,20 +31,24 @@ export default function App() {
     ])
   }
 
-  const onAddTaskToSection = ({
-    task,
-    sectionTitle
+  const onCheckTask = ({
+    title
   }) => {
-    setSections(sections.map((s) => {
-      if (s.title === sectionTitle) {
-        s.tasks.push(task)
-      }
-      return s
-    }))
+    setTasks(
+      tasks.map((t) => {
+        if (t.title === title) {
+          t.done = !t.done
+        }
+
+        return t
+      })
+    )
   }
 
+  console.log(tasks)
+
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex h-screen w-screen bg-gradient-to-r from-zinc-800 to-zinc-900">
       <div className="flex flex-col gap-2 mx-auto w-96">
         <h1 className="text-3xl font-bold">
           local-list
@@ -55,14 +59,28 @@ export default function App() {
           <Button onClick={onAddSection} text="+ Add section" />
         </div>
 
-        <div className="flex flex-col">
-          {tasks.map((t) =>
-            <Task key={t.title} task={t}/>
+        {!!tasks.length && (
+          <span>
+          Done: {tasks.filter(t => t.done).length}/{tasks.length}
+        </span>
+        )}
+
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            {tasks.map((t) =>
+              <Task key={t.title} task={t} onCheckTask={onCheckTask}/>
+            )}
+          </div>
+
+          {!!tasks.length && !!sections.length && (
+            <div className="bg-zinc-500 h-px" />
           )}
 
-          {sections.map((s) =>
-            <Section key={s.title} section={s} onAddTaskToSection={onAddTaskToSection}/>
-          )}
+          <div className="flex flex-col gap-2">
+            {sections.map((s) =>
+              <Section key={s.title} section={s} />
+            )}
+          </div>
         </div>
       </div>
     </div>
