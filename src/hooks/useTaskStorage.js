@@ -62,7 +62,6 @@ export const useTaskStorage = () => {
     )
   }
 
-
   const removeTask = (taskId) => {
     saveTasks(
       tasks.filter((task) => task.id  !== taskId)
@@ -74,8 +73,6 @@ export const useTaskStorage = () => {
       tasks.filter((task) => !task.sectionId || (task.sectionId  !== sectionId))
     )
   }
-
-
 
   return {
     tasks,

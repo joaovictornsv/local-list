@@ -9,6 +9,7 @@ import {useRef, useState} from "react";
 import {useSection} from "../../contexts/useSection.js";
 import {Input} from "../atoms/Input.jsx";
 import {useTask} from "../../contexts/useTask.js";
+import {RoutePaths} from "../../router/RoutePaths.js";
 
 export const Section = ({
   section,
@@ -58,7 +59,7 @@ export const Section = ({
   }
 
   const navigateToSectionPage = () => {
-    navigate(`/section/${section.id}`)
+    navigate(`${RoutePaths.SECTION.replace(':sectionId', section.id)}`)
   }
 
   return (

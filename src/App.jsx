@@ -1,4 +1,4 @@
-import {MainRoutes} from "./routes.jsx";
+import {MainRoutes} from "./router/Router.jsx";
 
 export default function App() {
   return (

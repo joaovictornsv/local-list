@@ -5,6 +5,11 @@ const BUTTON_SIZES = {
   md: 'py-2 px-2',
 }
 
+const ICON_SIZES = {
+  sm: 'h-2',
+  md: 'h-3',
+}
+
 const BUTTON_TYPES = {
   primary: 'text-zinc-200 bg-zinc-950 border-none hover:bg-zinc-900 focus:bg-zinc-800 transition-colors duration-75 focus:outline-none focus:ring-1 focus:ring-zinc-400',
   ghost: 'text-zinc-200 border-none bg-transparent focus:bg-zinc-800 focus:outline-none transition-colors duration-75 hover:bg-zinc-900',
@@ -23,6 +28,7 @@ export const Button = ({
 }) => {
   const opacityClassName = 'disabled:opacity-50 disabled:pointer-events-none'
   const sizeClassName = BUTTON_SIZES[size]
+  const iconSizeClassName = ICON_SIZES[size]
   const typeClassName = BUTTON_TYPES[type]
 
   return (
@@ -32,7 +38,7 @@ export const Button = ({
       {...(isSubmit & {type: 'submit'})}
       {...rest}
     >
-      {icon && <FontAwesomeIcon icon={icon}/>}
+      {icon && <FontAwesomeIcon className={iconSizeClassName} icon={icon}/>}
       {(text || children) && text ? text : children}
     </button>
   )

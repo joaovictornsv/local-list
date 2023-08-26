@@ -1,6 +1,7 @@
 import {Button} from "../atoms/Button.jsx";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import {useNavigate} from "react-router-dom";
+import {RoutePaths} from "../../router/RoutePaths.js";
 
 export const NotFound = () => {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ export const NotFound = () => {
 
         <Button
           icon={faArrowLeft} text="Return to home"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(RoutePaths.HOME)}
         />
       </div>
     </div>
