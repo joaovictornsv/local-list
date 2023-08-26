@@ -44,10 +44,10 @@ export const Export = () => {
       ...(sectionId && {sectionId})
     }))
 
-    const data = JSON.stringify({
+    const data = btoa(JSON.stringify({
       tasks: minifiedTasks,
       sections: sectionsToExport
-    })
+    }))
 
     const link = `${window.location.origin}${RoutePaths.IMPORT}?data=${data}`
     setExportLink(link)

@@ -14,7 +14,7 @@ export const Import = () => {
   const [urlSearchParams] = useSearchParams()
   const {data} = Object.fromEntries(urlSearchParams)
 
-  const {tasks, sections} = JSON.parse(data || '{}')
+  const {tasks, sections} = JSON.parse(atob(data || '') || '{}')
   const { importTasks } = useTask()
   const { importSections } = useSection()
 
