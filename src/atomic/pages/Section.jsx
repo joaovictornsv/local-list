@@ -37,7 +37,7 @@ export const Section = () => {
     <div className="w-full flex flex-col justify-start gap-12">
       <div className="flex items-center gap-2 justify-between">
         <Button className="w-max" icon={faArrowLeft} text="Home" type="ghost" onClick={() => navigate(RoutePaths.HOME)} />
-        <Button icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}/>
+        <Button className="w-max" icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}/>
       </div>
 
 

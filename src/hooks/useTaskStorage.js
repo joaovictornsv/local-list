@@ -39,6 +39,17 @@ export const useTaskStorage = () => {
     )
   }
 
+  const importTasks = (newTasks) => {
+    const tasksToLoad = newTasks.map((task) => ({
+      ...task,
+      id: generateRandomUuid(),
+    }))
+    saveTasks([
+      ...tasks,
+      ...tasksToLoad,
+    ])
+  }
+
   const newTask = ({ title, sectionId }) => {
     saveTasks([
       ...tasks,
@@ -83,5 +94,6 @@ export const useTaskStorage = () => {
     getIndependentTasks,
     getTasksBySectionId,
     removeTasksFromSectionId,
+    importTasks,
   }
 }

@@ -18,7 +18,7 @@ export const Home = () => {
   return (
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex flex-col items-start justify-between gap-12">
-        <Button icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(RoutePaths.EXPORT)}/>
+        <Button className="w-max" icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(RoutePaths.EXPORT)}/>
 
         <h1 className="text-3xl font-bold">
           LocalList

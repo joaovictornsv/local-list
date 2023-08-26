@@ -34,6 +34,10 @@ export const Export = () => {
       ? getTasksBySectionId(sectionId)
       : tasks
 
+    const sectionsToExport = sectionId
+      ? [section]
+      : sections
+
     const minifiedTasks = tasksToExport.map(({title, done, sectionId}) => ({
       title,
       done,
@@ -42,10 +46,10 @@ export const Export = () => {
 
     const data = JSON.stringify({
       tasks: minifiedTasks,
-      sections
+      sections: sectionsToExport
     })
 
-    const link = `${window.location.origin}/load?data=${data}`
+    const link = `${window.location.origin}${RoutePaths.IMPORT}?data=${data}`
     setExportLink(link)
     setExportingTasks(tasksToExport)
   }
@@ -110,7 +114,7 @@ export const Export = () => {
 
                   <Button
                     icon={faCopy}
-                    size="md"
+                    className="w-max"
                     onClick={copyLinkToClipboard}
                   />
                 </div>

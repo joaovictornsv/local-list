@@ -5,6 +5,7 @@ import {Section} from "../atomic/pages/Section.jsx";
 import {RoutePaths} from "./RoutePaths.js";
 import {Layout} from "./Layout.jsx";
 import {Export} from "../atomic/pages/Export.jsx";
+import {Import} from "../atomic/pages/Import.jsx";
 
 const ROUTES_COMPONENTS = {
   [RoutePaths.HOME]: (
@@ -22,12 +23,11 @@ const ROUTES_COMPONENTS = {
       <Export />
     </Layout>
   ),
-  // [RoutePaths.SHARE]: (
-  //   <Section />
-  // ),
-  // [RoutePaths.SECTION]: (
-  //   <Section />
-  // ),
+  [RoutePaths.IMPORT]: (
+    <Layout>
+      <Import />
+    </Layout>
+  ),
 }
 
 export const MainRoutes = () => (

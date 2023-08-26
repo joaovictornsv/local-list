@@ -36,6 +36,13 @@ export const useSectionStorage = () => {
     ])
   }
 
+  const importSections = (newSections) => {
+    saveSections([
+      ...sections,
+      ...newSections,
+    ])
+  }
+
   const removeSection = (sectionId) => {
     saveSections(
       sections.filter((section) => section.id  !== sectionId)
@@ -61,5 +68,6 @@ export const useSectionStorage = () => {
     removeSection,
     getSection,
     editSection,
+    importSections,
   }
 }
