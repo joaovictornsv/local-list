@@ -38,7 +38,7 @@ export const Section = () => {
 
         {section ? (
           <div className="flex flex-col gap-8">
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl line-clamp-3 break-all font-bold">
               {section.title}
             </h1>
 

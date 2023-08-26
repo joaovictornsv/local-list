@@ -76,7 +76,7 @@ export const Section = ({
           <p className="flex items-center gap-2 cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
             <FontAwesomeIcon className="h-3" icon={faArrowUpRightFromSquare} />
 
-            <span className="text-sm">
+            <span className="text-sm line-clamp-3 break-all leading-none">
               {section.title}{' '}
             </span>
 

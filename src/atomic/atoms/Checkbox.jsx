@@ -8,7 +8,7 @@ export const Checkbox = ({
   ...rest
 }) => {
   return (
-    <label htmlFor={id} className="text-sm cursor-pointer flex items-center gap-2">
+    <label htmlFor={id} className="flex justify-start items-start text-sm cursor-pointer gap-2">
       <input
         type="checkbox"
         className="hidden p-2 rounded"
@@ -16,13 +16,17 @@ export const Checkbox = ({
         {...rest}
       />
 
-      <div className={`h-4 w-4 rounded-sm ${checked?'bg-zinc-200':'bg-zinc-600 '} flex items-center justify-center`}>
-        <FontAwesomeIcon icon={faCheck} className={`text-zinc-800 text-xs ${checked?'block':'hidden'}`}/>
+      <div>
+        <div className={`h-4 w-4 rounded-sm ${checked?'bg-zinc-200':'bg-zinc-600 '} flex items-center justify-center`}>
+          <FontAwesomeIcon icon={faCheck} className={`text-zinc-800 text-xs ${checked?'block':'hidden'}`}/>
+        </div>
       </div>
 
-      <span className={`${checked?'line-through':''}`}>
-        {label}
-      </span>
+      <div>
+        <span className={`line-clamp-3 break-all leading-none ${checked?'line-through':''}`}>
+          {label}
+        </span>
+      </div>
     </label>
   )
 }
