@@ -1,5 +1,6 @@
 import {Button} from "../atoms/Button.jsx";
 import {useEffect, useRef} from "react";
+import {faWarning} from "@fortawesome/free-solid-svg-icons/faWarning";
 
 export const RemoveConfirmation = ({
   removeAction,
@@ -25,9 +26,8 @@ export const RemoveConfirmation = ({
   }, [wrapperRef]);
 
   return (
-    <div ref={wrapperRef} className="absolute top-0 flex flex-col items-end right-0 drop-shadow-md z-10 bg-zinc-800 w-24 rounded">
-      <Button size="lg" text="Delete" className="rounded-none text-rose-400" type="ghost" onClick={removeAction}/>
-      <Button size="lg" text="Cancel" className="rounded-none" type="ghost" onClick={cancelAction}/>
+    <div ref={wrapperRef} className="absolute -bottom-1 translate-y-full flex flex-col items-end right-0 z-10 rounded">
+      <Button icon={faWarning} text="Confirm" type="danger" onClick={removeAction}/>
     </div>
   )
 }
