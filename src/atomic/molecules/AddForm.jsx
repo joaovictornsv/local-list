@@ -5,7 +5,8 @@ import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 
-export const AddForm = () => {
+
+export const AddForm = ({ isSectionScope, sectionId }) => {
   const [inputValue, setInputValue] = useState('')
   const [showInputError, setShowInputError] = useState(false)
 
@@ -23,13 +24,18 @@ export const AddForm = () => {
     return true
   }
 
-  const onAddTask = () => {
+  const onAddTask = (e) => {
     if (!validateInput()) {
       return
     }
 
+    if (e) {
+      e.preventDefault()
+    }
+
     newTask({
-      title: inputValue
+      title: inputValue,
+      sectionId
     })
   }
   const onAddSection = () => {
@@ -47,19 +53,21 @@ export const AddForm = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2 ">
-      <Input
-        value={inputValue}
-        onChange={onChange}
-        errorMessage={showInputError && 'Please fill the field with valid input'}
-        label="What you need to do?"
-        placeholder="Walk with the dog..."
-        ref={inputRef}
-      />
-      <div className="flex items-center self-end gap-2">
-        <Button onClick={onAddTask} icon={faPlus} text="Add task" />
-        <Button onClick={onAddSection} icon={faPlus} text="Add section" />
+    <form onSubmit={onAddTask}>
+      <div className="flex flex-col gap-2 ">
+        <Input
+          value={inputValue}
+          onChange={onChange}
+          errorMessage={showInputError && 'Please fill the field with valid input'}
+          label={isSectionScope ? 'Add new subtask' : 'What you need to do?'}
+          placeholder="Buy milk"
+          ref={inputRef}
+        />
+        <div className="flex items-center self-end gap-2">
+          <Button isSubmit onClick={onAddTask} icon={faPlus} text="Add task" />
+          {!isSectionScope && <Button onClick={onAddSection} icon={faPlus} text="Add section" />}
+        </div>
       </div>
-    </div>
+    </form>
   )
 }

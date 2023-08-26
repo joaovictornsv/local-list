@@ -11,10 +11,11 @@ export const Task = ({ task }) => {
   const [editMode, setEditMode] = useState(false)
   const [inputValue, setInputValue] = useState(task.title)
   const [showInputError, setShowInputError] = useState(false)
+  const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false)
 
   const inputRef = useRef(null)
 
-  const { toggleTaskDone, removeTask,editTask } = useTask()
+  const { toggleTaskDone, removeTask, editTask } = useTask()
 
   const validateInput = () => {
     if (!inputValue.trim()) {
@@ -43,6 +44,10 @@ export const Task = ({ task }) => {
     setInputValue(e.target.value)
   }
 
+  const askRemoveConfirmation = () => {
+    setShowRemoveConfirmation(true)
+  }
+
   return (
     <div className={`flex gap-2 justify-between ${editMode ? 'items-start' : 'items-center'}`}>
       {editMode ? (
@@ -58,16 +63,20 @@ export const Task = ({ task }) => {
           onChange={() => toggleTaskDone(task.id)}
           checked={task.done}
           label={!editMode && task.title}
-          id={task.title}
+          id={task.id}
         />
       )}
 
       {editMode ? (
         <Button icon={faSave} onClick={saveChanges} type="ghost"/>
       ): (
-        <div className="flex items-center gap-1">
+        <div className="flex relative items-center gap-1">
           <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
-          <Button icon={faTrash} onClick={() => removeTask(task.id)}  type="ghost"/>
+          <Button icon={faTrash} onClick={askRemoveConfirmation}  type="ghost"/>
+          {showRemoveConfirmation && <div className="absolute top-0 flex flex-col gap-1 right-0 translate-x-full">
+            <Button className="ml-2" size="sm" text="Sure?" type="danger" onClick={() => removeTask(task.id)}/>
+            <Button className="ml-2" size="sm" text="Cancel" onClick={() => setShowRemoveConfirmation(false)}/>
+          </div>}
         </div>
       )}
 

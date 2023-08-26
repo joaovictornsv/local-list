@@ -14,6 +14,14 @@ export const useTaskStorage = () => {
     return JSON.parse(raw || '[]')
   }
 
+  const getIndependentTasks = () => {
+    return tasks.filter((task) => !task.sectionId)
+  }
+
+  const getTasksBySectionId = (sectionId) => {
+    return tasks.filter((task) => task.sectionId === sectionId)
+  }
+
   const saveTasks = (tasks) => {
     const raw = JSON.stringify(tasks)
     localStorage.setItem(TASKS_STORAGE_KEY, raw)
@@ -31,13 +39,14 @@ export const useTaskStorage = () => {
     )
   }
 
-  const newTask = ({ title }) => {
+  const newTask = ({ title, sectionId }) => {
     saveTasks([
       ...tasks,
       {
         id: generateRandomUuid(),
         done: false,
         title: title,
+        ...(sectionId && {sectionId})
       }
     ])
   }
@@ -60,6 +69,13 @@ export const useTaskStorage = () => {
     )
   }
 
+  const removeTasksFromSectionId = (sectionId) => {
+    saveTasks(
+      tasks.filter((task) => !task.sectionId || (task.sectionId  !== sectionId))
+    )
+  }
+
+
 
   return {
     tasks,
@@ -67,5 +83,8 @@ export const useTaskStorage = () => {
     removeTask,
     toggleTaskDone,
     editTask,
+    getIndependentTasks,
+    getTasksBySectionId,
+    removeTasksFromSectionId,
   }
 }
