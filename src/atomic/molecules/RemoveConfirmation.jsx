@@ -26,7 +26,7 @@ export const RemoveConfirmation = ({
 
   return (
     <div ref={wrapperRef} className="absolute top-0 flex flex-col items-end right-0 drop-shadow-md z-10 bg-zinc-800 w-24 rounded">
-      <Button size="lg" text="Delete" className="rounded-none text-rose-500" type="ghost" onClick={removeAction}/>
+      <Button size="lg" text="Delete" className="rounded-none text-rose-400" type="ghost" onClick={removeAction}/>
       <Button size="lg" text="Cancel" className="rounded-none" type="ghost" onClick={cancelAction}/>
     </div>
   )
