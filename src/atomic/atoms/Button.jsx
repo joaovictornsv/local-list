@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const BUTTON_SIZES = {
   sm: 'py-1 px-2',
   md: 'py-2 px-2',
+  lg: 'py-3 px-3',
 }
 
 const ICON_SIZES = {

@@ -6,6 +6,7 @@ import {Input} from "../atoms/Input.jsx";
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {useRef, useState} from "react";
 import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
+import {RemoveConfirmation} from "./RemoveConfirmation.jsx";
 
 export const Task = ({ task }) => {
   const [editMode, setEditMode] = useState(false)
@@ -68,15 +69,17 @@ export const Task = ({ task }) => {
       )}
 
       {editMode ? (
-        <Button icon={faSave} onClick={saveChanges} type="ghost"/>
+        <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
       ): (
         <div className="flex relative items-center gap-1">
           <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
           <Button icon={faTrash} onClick={askRemoveConfirmation}  type="ghost"/>
-          {showRemoveConfirmation && <div className="absolute top-0 flex flex-col gap-1 right-0 translate-x-full">
-            <Button className="ml-2" size="sm" text="Sure?" type="danger" onClick={() => removeTask(task.id)}/>
-            <Button className="ml-2" size="sm" text="Cancel" onClick={() => setShowRemoveConfirmation(false)}/>
-          </div>}
+          {showRemoveConfirmation && (
+            <RemoveConfirmation
+              cancelAction={() => setShowRemoveConfirmation(false)}
+              removeAction={() => removeTask(task.id)}
+            />
+          )}
         </div>
       )}
 

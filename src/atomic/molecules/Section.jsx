@@ -10,6 +10,7 @@ import {useSection} from "../../contexts/useSection.js";
 import {Input} from "../atoms/Input.jsx";
 import {useTask} from "../../contexts/useTask.js";
 import {RoutePaths} from "../../router/RoutePaths.js";
+import {RemoveConfirmation} from "./RemoveConfirmation.jsx";
 
 export const Section = ({
   section,
@@ -91,15 +92,17 @@ export const Section = ({
       )}
 
       {editMode ? (
-        <Button icon={faSave} onClick={saveChanges} type="ghost"/>
+        <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
       ): (
         <div className="flex relative items-center gap-1">
           <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
           <Button icon={faTrash} onClick={askRemoveConfirmation}  type="ghost"/>
-          {showRemoveConfirmation && <div className="absolute top-0 flex flex-col gap-1 right-0 translate-x-full">
-            <Button className="ml-2" size="sm" text="Sure?" type="danger" onClick={() => removeSection(section.id)}/>
-            <Button className="ml-2" size="sm" text="Cancel" onClick={() => setShowRemoveConfirmation(false)}/>
-          </div>}
+          {showRemoveConfirmation && (
+            <RemoveConfirmation
+              cancelAction={() => setShowRemoveConfirmation(false)}
+              removeAction={() => removeSection(section.id)}
+            />
+          )}
         </div>
       )}
     </div>

@@ -2,11 +2,9 @@ import {Button} from "../atoms/Button.jsx";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
-import {faCopy} from "@fortawesome/free-solid-svg-icons/faCopy";
-import {Input} from "../atoms/Input.jsx";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 

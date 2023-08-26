@@ -97,7 +97,9 @@ export const Export = () => {
             <>
               <p>
                 <span className="text-sm text-zinc-400">
-                  You are sharing {sectionId ? `the section ${section.title}, that includes` : 'a total of'}:
+                  You are sharing {sectionId ? (
+                    <>the section <span className="text-zinc-200 font-bold">{section.title}</span>, that includes</>
+                ) : 'a total of'}:
                 </span><br/>
                   <span>
                   {exportingTasks.length} task{exportingTasks.length > 1 ? 's' : ''}
