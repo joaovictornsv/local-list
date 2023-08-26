@@ -25,23 +25,28 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
   }
 
   const onAddTask = (e) => {
-    if (!validateInput()) {
-      return
-    }
-
     if (e) {
       e.preventDefault()
     }
 
+    if (!validateInput()) {
+      return
+    }
+
+    setInputValue('')
     newTask({
       title: inputValue,
       sectionId
     })
   }
-  const onAddSection = () => {
+  const onAddSection = (e) => {
+    if (e) {
+      e.preventDefault()
+    }
     if (!validateInput()) {
       return
     }
+    setInputValue('')
     newSection({
       title: inputValue
     })

@@ -11,8 +11,8 @@ export const Home = () => {
   const tasks = getIndependentTasks()
 
   return (
-    <div className="flex h-screen w-screen bg-gradient-to-r from-zinc-800 to-zinc-900">
-      <div className="flex flex-col gap-8 mx-auto w-96 mt-16">
+    <div className="flex h-full w-full">
+      <div className="flex flex-col justify-start gap-8 mx-auto w-96 mt-16 pb-16">
         <h1 className="text-3xl font-bold">
           LocalList
         </h1>

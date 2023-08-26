@@ -25,15 +25,15 @@ export const Section = () => {
 
   if (isLoading) {
     return (
-      <div className="flex w-screen">
+      <div className="flex h-screen w-screen">
         <span className="m-auto">Loading...</span>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-gradient-to-r from-zinc-800 to-zinc-900">
-      <div className="flex flex-col justify-start gap-12 mx-auto w-96 mt-4">
+    <div className="flex flex-col h-full w-full">
+      <div className="flex flex-col justify-start gap-12 mx-auto w-96 my-4">
         <Button className="w-max" icon={faArrowLeft} text="Home" type="ghost" onClick={() => navigate('/')} />
 
         {section ? (
@@ -62,7 +62,6 @@ export const Section = () => {
             <span className="m-auto">Section not found</span>
           </div>
         )}
-
       </div>
     </div>
   )

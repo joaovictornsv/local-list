@@ -13,7 +13,7 @@ export const TaskList = ({ tasks }) => {
   return (
     <div className="flex flex-col gap-2">
       {!!tasks.length && (
-        <span className="text-sm">
+        <span className="text-sm text-zinc-400">
           Done: {tasks.filter(t => t.done).length}/{tasks.length}
         </span>
       )}
