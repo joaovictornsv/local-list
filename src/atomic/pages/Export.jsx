@@ -3,19 +3,19 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {faCopy} from "@fortawesome/free-solid-svg-icons/faCopy";
-import {Input} from "../atoms/Input.jsx";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
+import {Textarea} from "../atoms/Textarea.jsx";
 
 export const Export = () => {
   const navigate = useNavigate()
   const {tasks, getTasksBySectionId} = useTask()
   const {sections, getSection} = useSection()
 
-  const [exportLink, setExportLink] = useState('')
+  const [exportData, setExportData] = useState('')
   const [copied, setCopied] = useState(false)
   const [exportingTasks, setExportingTasks] = useState([])
 
@@ -25,11 +25,11 @@ export const Export = () => {
   const section = sectionId && getSection(sectionId)
 
   useEffect(() => {
-    generateLink()
+    generateData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks]);
 
-  const generateLink = () => {
+  const generateData = () => {
     const tasksToExport = sectionId
       ? getTasksBySectionId(sectionId)
       : tasks
@@ -44,25 +44,24 @@ export const Export = () => {
       ...(sectionId && {sectionId})
     }))
 
-    const data = btoa(JSON.stringify({
+    const data = JSON.stringify({
       tasks: minifiedTasks,
       sections: sectionsToExport
-    }))
+    })
 
-    const link = `${window.location.origin}${RoutePaths.IMPORT}?data=${data}`
-    setExportLink(link)
+    setExportData(data)
     setExportingTasks(tasksToExport)
   }
 
   const copyLinkToClipboard = () => {
-    navigator.clipboard.writeText(exportLink)
+    navigator.clipboard.writeText(exportData)
       .then(() => {
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
       })
   }
 
-  if (!exportLink) {
+  if (!exportData) {
     return null
   }
 
@@ -87,7 +86,7 @@ export const Export = () => {
               Share your data
             </h1>
             <p className="text-sm text-zinc-400">
-              Copy the link below to share your data with another device or browser.
+              Copy the json below to share your data with another device or browser.
             </p>
           </div>
 
@@ -111,12 +110,12 @@ export const Export = () => {
                 </span>
               </p>
               <div className="w-full flex flex-col gap-4">
-                <div className="flex items-center gap-2">
-                  <Input readOnly value={exportLink} className="bg-zinc-950"  />
+                <div className="flex flex-col gap-2">
+                  <Textarea rows="5" readOnly value={exportData} className="resize-none"  />
 
                   <Button
                     icon={faCopy}
-                    className="w-max"
+                    text="Copy"
                     onClick={copyLinkToClipboard}
                   />
                 </div>

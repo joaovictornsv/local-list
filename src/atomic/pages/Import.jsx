@@ -1,31 +1,80 @@
 import {Button} from "../atoms/Button.jsx";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
+import {Textarea} from "../atoms/Textarea.jsx";
+import {isValidJsonString} from "../../utils/isValidJsonString.js";
+
+const isValidJsonData = (data) => {
+  console.log(data)
+  if (!Array.isArray(data.sections) || !Array.isArray(data.tasks)) {
+    console.log('not a array')
+    return false
+  }
+
+  const validTasks = data.tasks.length ? data.tasks.every((task) => {
+    return (
+      task.title !== undefined &&
+      task.done !== undefined
+    )
+  }) : true
+  const validSections =  data.sections.length ? data.sections.every((task) => {
+    return (
+      task.id !== undefined &&
+      task.title !== undefined
+    )
+  }) : true
+
+  console.log('validSections', validSections)
+  console.log('validTasks', validTasks)
+
+  return !(!validTasks || !validSections);
+}
 
 export const Import = () => {
   const navigate = useNavigate()
+  const [dataToImport, setDataToImport] = useState('')
+  const [tasksToImport, setTasksToImport] = useState([])
+  const [sectionsToImport, setSectionsToImport] = useState([])
 
-  const [urlSearchParams] = useSearchParams()
-  const {data} = Object.fromEntries(urlSearchParams)
-
-  const {tasks, sections} = JSON.parse(atob(data || '') || '{}')
   const { importTasks } = useTask()
   const { importSections } = useSection()
 
   const [dataLoaded, setDataLoaded] = useState(false)
+  const [invalidJsonData, setInvalidJsonData] = useState(false)
 
-  const importData = () => {
-    importTasks(tasks)
-    importSections(sections)
-    setDataLoaded(true)
+
+  const validateAndParseData = (e) => {
+    const data = e.target.value
+    setDataToImport(data)
+
+    if (!isValidJsonString(data)) {
+      console.log('invalid string')
+      setInvalidJsonData(true)
+      return
+    }
+
+    const parsedData = JSON.parse(data)
+    if (!isValidJsonData(parsedData)) {
+      setInvalidJsonData(true)
+      return
+    }
+
+    setTasksToImport(parsedData.tasks)
+    setSectionsToImport(parsedData.sections)
+    setInvalidJsonData(false)
   }
 
+  const importData = () => {
+    importTasks(tasksToImport)
+    importSections(sectionsToImport)
+    setDataLoaded(true)
+  }
 
   return (
     <div className="w-full flex flex-col justify-start gap-8">
@@ -44,24 +93,31 @@ export const Import = () => {
               Import data
             </h1>
             <p className="text-sm text-zinc-400">
-              You are importing a external data
+              Paste the JSON data bellow to import a external data
             </p>
           </div>
 
-          {!data && (
+          <Textarea
+            rows="5"
+            value={dataToImport}
+            onChange={validateAndParseData}
+            className="bg-zinc-950 resize-none"
+          />
+
+          {dataToImport && invalidJsonData && (
             <span className="text-sm">
-              No data provided
+              Invalid JSON provided.
             </span>
           )}
 
-          {data && (
+          {dataToImport && !invalidJsonData && (
             <div className="flex flex-col gap-4">
               <p>
               <span className="text-sm text-zinc-400">
                 Data to be imported:
               </span><br/>
                 <span>
-                {tasks.length} task{tasks.length > 1 ? 's' : ''} and {sections.length} section{sections.length > 1 ? 's' : ''}
+                {tasksToImport.length} task{tasksToImport.length > 1 ? 's' : ''} and {sectionsToImport.length} section{sectionsToImport.length > 1 ? 's' : ''}
               </span>
               </p>
 
