@@ -23,7 +23,7 @@ export const Checkbox = ({
       </div>
 
       <div>
-        <span className={`line-clamp-3 break-all leading-none ${checked?'line-through':''}`}>
+        <span className={`line-clamp-3 break-all ${checked?'line-through':''}`}>
           {label}
         </span>
       </div>

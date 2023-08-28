@@ -1,2 +1,2 @@
-import {v4} from 'uuid'
-export const generateRandomUuid = () => v4()
+import {nanoid} from 'nanoid'
+export const generateRandomUuid = () => nanoid()
