@@ -1,11 +1,12 @@
 import {Button} from "../atoms/Button.jsx";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {faWarning} from "@fortawesome/free-solid-svg-icons/faWarning";
+import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
 
 export const RemoveConfirmation = ({
   removeAction,
-  cancelAction,
 }) => {
+  const [askingConfirmation, setAskingConfirmation] = useState(false)
   const wrapperRef = useRef(null);
 
   useEffect(() => {
@@ -14,7 +15,7 @@ export const RemoveConfirmation = ({
      */
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        cancelAction();
+        setAskingConfirmation(false);
       }
     }
     // Bind the event listener
@@ -25,9 +26,11 @@ export const RemoveConfirmation = ({
     };
   }, [wrapperRef]);
 
+
   return (
-    <div ref={wrapperRef} className="absolute -bottom-1 translate-y-full flex flex-col items-end right-0 z-10 rounded">
-      <Button icon={faWarning} text="Confirm" type="danger" onClick={removeAction}/>
-    </div>
-  )
+    <>
+      <Button className={askingConfirmation ? '': 'hidden'} ref={wrapperRef} size="sm" icon={faWarning} text="Confirm" type="danger" onClick={removeAction}/>
+      <Button className={askingConfirmation ? 'hidden': ''} icon={faTrash} type="ghost" onClick={() => setAskingConfirmation(true)}/>
+    </>
+    )
 }

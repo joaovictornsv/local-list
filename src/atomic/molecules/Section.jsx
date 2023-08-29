@@ -96,13 +96,9 @@ export const Section = ({
       ): (
         <div className="flex relative items-center gap-1">
           <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
-          <Button icon={faTrash} onClick={askRemoveConfirmation}  type="ghost"/>
-          {showRemoveConfirmation && (
-            <RemoveConfirmation
-              cancelAction={() => setShowRemoveConfirmation(false)}
-              removeAction={() => removeSection(section.id)}
-            />
-          )}
+          <RemoveConfirmation
+            removeAction={() => removeSection(section.id)}
+          />
         </div>
       )}
     </div>

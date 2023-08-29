@@ -1,4 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React from "react";
 
 const BUTTON_SIZES = {
   sm: 'py-1 px-2',
@@ -18,7 +19,8 @@ const BUTTON_TYPES = {
   danger: 'text-zinc-200 border-none bg-red-600 focus:bg-red-500 focus:outline-none transition-colors duration-75 hover:bg-red-700 focus:ring-1 focus:ring-red-300'
 }
 
-export const Button = ({
+// eslint-disable-next-line react/display-name
+export const Button = React.forwardRef(({
   size = 'md',
   type = 'primary',
   isSubmit,
@@ -27,16 +29,16 @@ export const Button = ({
   text,
   className,
   ...rest
-}) => {
+}, ref) => {
   const opacityClassName = 'disabled:opacity-50 disabled:pointer-events-none'
   const sizeClassName = BUTTON_SIZES[size]
   const iconSizeClassName = ICON_SIZES[size]
   const typeClassName = BUTTON_TYPES[type]
 
   return (
-
     <button
       className={`text-sm w-full font-normal rounded-2 py-1 px-2 inline-flex items-center justify-center gap-2  ${opacityClassName} ${typeClassName} ${sizeClassName} ${className}`}
+      ref={ref}
       {...(isSubmit & {type: 'submit'})}
       {...rest}
     >
@@ -44,4 +46,4 @@ export const Button = ({
       {(text || children) && text ? text : children}
     </button>
   )
-}
+})

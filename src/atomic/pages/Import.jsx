@@ -48,7 +48,6 @@ export const Import = () => {
   const [dataLoaded, setDataLoaded] = useState(false)
   const [invalidJsonData, setInvalidJsonData] = useState(false)
 
-
   const validateAndParseData = (e) => {
     const data = e.target.value
     setDataToImport(data)
@@ -101,7 +100,7 @@ export const Import = () => {
             rows="5"
             value={dataToImport}
             onChange={validateAndParseData}
-            className="bg-zinc-950 resize-none"
+            className="resize-none"
           />
 
           {dataToImport && invalidJsonData && (
@@ -128,19 +127,11 @@ export const Import = () => {
                     Import completed!
                   </span>
                 ): (
-                  <>
-                    <Button
-                      text="Import"
-                      className="w-full"
-                      onClick={importData}
-                    />
-                    <Button
-                      text="Cancel"
-                      className="w-full"
-                      type="outline"
-                      onClick={() => navigate(RoutePaths.HOME)}
-                    />
-                  </>
+                  <Button
+                    text="Import"
+                    className="w-full"
+                    onClick={importData}
+                  />
                 )}
               </div>
             </div>
