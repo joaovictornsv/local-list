@@ -10,6 +10,7 @@ export const Checkbox = ({
         type="checkbox"
         className="mt-1 rounded bg-neutral-600 accent-zinc-200"
         id={id}
+        checked={checked}
         {...rest}
       />
 
