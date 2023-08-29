@@ -27,8 +27,8 @@ export const Section = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-screen">
-        <span className="m-auto">Loading...</span>
+      <div className="flex w-full justify-center">
+        <span className="text-sm">Loading...</span>
       </div>
     )
   }
