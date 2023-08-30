@@ -1,5 +1,10 @@
 import {Section} from "../molecules/Section.jsx";
 
+const sortByPin = (itemA, itemB) => {
+  return (itemA.pinned === itemB.pinned)? 0 : itemA.pinned? -1 : 1;
+}
+
+
 export const SectionList = ({sections}) => {
 
   if (!sections) {
@@ -12,7 +17,7 @@ export const SectionList = ({sections}) => {
 
   return (
     <div className="flex flex-col gap-2">
-      {sections.map((section) =>
+      {sections.sort(sortByPin).map((section) =>
         <Section key={section.id} section={section} />
       )}
     </div>

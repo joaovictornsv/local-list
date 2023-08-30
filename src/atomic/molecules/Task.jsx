@@ -1,18 +1,17 @@
 import {Checkbox} from "../atoms/Checkbox.jsx";
 import {Button} from "../atoms/Button.jsx";
-import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
 import {useTask} from "../../contexts/useTask.js";
 import {Input} from "../atoms/Input.jsx";
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {useRef, useState} from "react";
 import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
-import {RemoveConfirmation} from "./RemoveConfirmation.jsx";
+import {Options} from "./Options.jsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faThumbtack} from "@fortawesome/free-solid-svg-icons/faThumbtack";
 
 export const Task = ({ task }) => {
   const [editMode, setEditMode] = useState(false)
   const [inputValue, setInputValue] = useState(task.title)
   const [showInputError, setShowInputError] = useState(false)
-  const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false)
 
   const inputRef = useRef(null)
 
@@ -36,7 +35,7 @@ export const Task = ({ task }) => {
     if (!validateInput()) {
       return
     }
-    editTask(task.id, { title: inputValue })
+    editTask(task.id, { ...task, title: inputValue })
     setEditMode(false)
   }
 
@@ -45,8 +44,8 @@ export const Task = ({ task }) => {
     setInputValue(e.target.value)
   }
 
-  const askRemoveConfirmation = () => {
-    setShowRemoveConfirmation(true)
+  const onPinTask = () => {
+    editTask(task.id, { ...task, pinned: !task.pinned })
   }
 
   return (
@@ -68,16 +67,20 @@ export const Task = ({ task }) => {
         />
       )}
 
-      {editMode ? (
-        <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
-      ): (
-        <div className="flex relative items-center gap-1">
-          <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
-          <RemoveConfirmation
-            removeAction={() => removeTask(task.id)}
+      <div className="flex items-center gap-2">
+        {task.pinned && !editMode && <FontAwesomeIcon icon={faThumbtack} className="text-sm rotate-45 text-zinc-400"/>}
+
+        {editMode ? (
+          <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
+        ): (
+          <Options
+            onDelete={() => removeTask(task.id)}
+            onEdit={startEditMode}
+            onPin={onPinTask}
+            alreadyPinned={task.pinned}
           />
-        </div>
-      )}
+        )}
+      </div>
 
     </div>
   )

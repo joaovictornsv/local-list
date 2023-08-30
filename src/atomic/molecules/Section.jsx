@@ -3,14 +3,13 @@ import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArro
 import {useNavigate} from "react-router-dom";
 import {Button} from "../atoms/Button.jsx";
 import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
-import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
 import {useRef, useState} from "react";
 import {useSection} from "../../contexts/useSection.js";
 import {Input} from "../atoms/Input.jsx";
 import {useTask} from "../../contexts/useTask.js";
 import {RoutePaths} from "../../router/RoutePaths.js";
-import {RemoveConfirmation} from "./RemoveConfirmation.jsx";
+import {Options} from "./Options.jsx";
+import {faThumbtack} from "@fortawesome/free-solid-svg-icons/faThumbtack";
 
 export const Section = ({
   section,
@@ -19,7 +18,6 @@ export const Section = ({
   const [editMode, setEditMode] = useState(false)
   const [inputValue, setInputValue] = useState(section.title)
   const [showInputError, setShowInputError] = useState(false)
-  const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false)
 
   const inputRef = useRef(null)
 
@@ -46,7 +44,7 @@ export const Section = ({
     if (!validateInput()) {
       return
     }
-    editSection(section.id, { title: inputValue })
+    editSection(section.id, { ...section, title: inputValue })
     setEditMode(false)
   }
 
@@ -55,8 +53,8 @@ export const Section = ({
     setInputValue(e.target.value)
   }
 
-  const askRemoveConfirmation = () => {
-    setShowRemoveConfirmation(true)
+  const onPinSection = () => {
+    editSection(section.id, { ...section, pinned: !section.pinned })
   }
 
   const navigateToSectionPage = () => {
@@ -83,24 +81,26 @@ export const Section = ({
             </span>
 
             <span className="text-sm text-zinc-400">
-              {tasks.length ? (
-                `${tasks.filter(t => t.done).length}/${tasks.length}`
-              ): 'No tasks'}
+              {tasks.filter(t => t.done).length}/{tasks.length}
             </span>
           </p>
         </div>
       )}
 
-      {editMode ? (
-        <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
-      ): (
-        <div className="flex relative items-center gap-1">
-          <Button icon={faPencil} onClick={startEditMode} type="ghost"/>
-          <RemoveConfirmation
-            removeAction={() => removeSection(section.id)}
+      <div className="flex items-center gap-2">
+        {section.pinned && !editMode  && <FontAwesomeIcon icon={faThumbtack} className="text-sm rotate-45 text-zinc-400"/>}
+
+        {editMode ? (
+          <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
+        ): (
+          <Options
+            onDelete={() => removeSection(section.id)}
+            onEdit={startEditMode}
+            onPin={onPinSection}
+            alreadyPinned={section.pinned}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

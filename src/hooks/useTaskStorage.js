@@ -62,13 +62,16 @@ export const useTaskStorage = () => {
     ])
   }
 
-  const editTask = (taskId, { title }) => {
+  const editTask = (taskId, { title, pinned }) => {
     saveTasks(
       tasks.map((task) => {
-        if (task.id === taskId) {
-          task.title = title
+        return {
+          ...task,
+          ...(task.id === taskId && {
+            title,
+            pinned: !!pinned
+          })
         }
-        return task
       })
     )
   }

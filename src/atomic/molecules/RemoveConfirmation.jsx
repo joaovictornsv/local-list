@@ -7,6 +7,7 @@ export const RemoveConfirmation = ({
   removeAction,
 }) => {
   const [askingConfirmation, setAskingConfirmation] = useState(false)
+
   const wrapperRef = useRef(null);
 
   useEffect(() => {

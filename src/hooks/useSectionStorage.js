@@ -51,13 +51,19 @@ export const useSectionStorage = () => {
   }
 
 
-  const editSection = (sectionId, { title }) => {
+  const editSection = (sectionId, { title, pinned }) => {
     saveSections(
       sections.map((section) => {
         if (section.id === sectionId) {
           section.title = title
         }
-        return section
+        return {
+          ...section,
+          ...(section.id === sectionId && {
+            title,
+            pinned: !!pinned
+          })
+        }
       })
     )
   }

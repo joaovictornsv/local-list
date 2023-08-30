@@ -1,5 +1,9 @@
 import {Task} from "../molecules/Task.jsx";
 
+const sortByPin = (itemA, itemB) => {
+  return (itemA.pinned === itemB.pinned)? 0 : itemA.pinned? -1 : 1;
+}
+
 export const TaskList = ({ tasks }) => {
 
   if (!tasks) {
@@ -17,7 +21,7 @@ export const TaskList = ({ tasks }) => {
           Done: {tasks.filter(t => t.done).length}/{tasks.length}
         </span>
       )}
-      {tasks.map((task) =>
+      {tasks.sort(sortByPin).map((task) =>
         <Task key={task.id} task={task} />
       )}
     </div>
