@@ -1,14 +1,20 @@
 import {Input} from "../atoms/Input.jsx";
 import {Button} from "../atoms/Button.jsx";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
+import {generateRandomPlaceholder} from "../../utils/generateRandomPlaceholder.js";
 
 
 export const AddForm = ({ isSectionScope, sectionId }) => {
   const [inputValue, setInputValue] = useState('')
   const [showInputError, setShowInputError] = useState(false)
+  const [randomPlaceholder, setRandomPlaceholder] = useState('')
+
+  useEffect(() => {
+    setRandomPlaceholder(generateRandomPlaceholder())
+  }, []);
 
   const inputRef = useRef(null)
 
@@ -65,7 +71,7 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
           onChange={onChange}
           errorMessage={showInputError && 'Please fill the field with valid input'}
           label={isSectionScope ? 'Add new subtask' : 'What you need to do?'}
-          placeholder="Buy milk"
+          placeholder={randomPlaceholder}
           ref={inputRef}
         />
         <div className="flex items-center self-end gap-2">

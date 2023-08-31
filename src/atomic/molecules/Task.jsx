@@ -49,7 +49,7 @@ export const Task = ({ task }) => {
   }
 
   return (
-    <div className={`flex gap-2 justify-between ${editMode ? 'items-start' : 'items-center'}`}>
+    <div className="flex gap-2 justify-between items-start">
       {editMode ? (
         <Input
           value={inputValue}

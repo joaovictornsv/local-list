@@ -39,7 +39,6 @@ export const Section = ({
     setEditMode(true)
   }
 
-
   const saveChanges = () => {
     if (!validateInput()) {
       return
@@ -62,7 +61,7 @@ export const Section = ({
   }
 
   return (
-    <div className={`flex gap-2 justify-between ${editMode ? 'items-start' : 'items-center'}`}>
+    <div className="flex gap-2 justify-between items-start">
       {editMode ? (
         <Input
           value={inputValue}
@@ -73,15 +72,14 @@ export const Section = ({
         />
       ): (
         <div className="w-max">
-          <p className="flex items-center gap-2 cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
-            <FontAwesomeIcon className="h-3" icon={faArrowUpRightFromSquare} />
+          <p className="flex items-start gap-2 cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
+            <FontAwesomeIcon className="py-1 h-3" icon={faArrowUpRightFromSquare} />
 
-            <span className="text-sm line-clamp-3 break-all leading-none">
+            <span className="text-sm line-clamp-3 break-words">
               {section.title}{' '}
-            </span>
-
-            <span className="text-sm text-zinc-400">
-              {tasks.filter(t => t.done).length}/{tasks.length}
+              <span className="text-sm text-zinc-400">
+                {tasks.filter(t => t.done).length}/{tasks.length}
+              </span>
             </span>
           </p>
         </div>

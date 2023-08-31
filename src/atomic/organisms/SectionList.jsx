@@ -1,8 +1,5 @@
 import {Section} from "../molecules/Section.jsx";
-
-const sortByPin = (itemA, itemB) => {
-  return (itemA.pinned === itemB.pinned)? 0 : itemA.pinned? -1 : 1;
-}
+import {sortByPin} from "../../utils/sortByPin.js";
 
 
 export const SectionList = ({sections}) => {
