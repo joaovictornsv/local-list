@@ -37,7 +37,7 @@ export const Share = () => {
               text="Export data"
             />
             <Button
-              type="outline"
+              type="secondary"
               onClick={() => navigate(RoutePaths.IMPORT)}
               icon={faFileImport}
               text="Import data"

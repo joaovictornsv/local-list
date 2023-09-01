@@ -36,11 +36,22 @@ export const useSectionStorage = () => {
     ])
   }
 
+  const checkImportConflicts = (newSections) => {
+    const currentSectionIds = sections.map((section) => section.id)
+    return newSections.filter(
+      (newSection) => currentSectionIds.includes(newSection.id)
+    )
+  }
+
   const importSections = (newSections) => {
-    saveSections([
-      ...sections,
-      ...newSections,
-    ])
+    const sectionsById = [...sections, ...newSections].reduce(
+      (acc, section) => ({
+        ...acc,
+        [section.id]: section
+      }),
+      {}
+    )
+    saveSections(Object.values(sectionsById))
   }
 
   const removeSection = (sectionId) => {
@@ -53,18 +64,14 @@ export const useSectionStorage = () => {
 
   const editSection = (sectionId, { title, pinned }) => {
     saveSections(
-      sections.map((section) => {
-        if (section.id === sectionId) {
-          section.title = title
-        }
-        return {
+      sections.map((section) =>({
           ...section,
           ...(section.id === sectionId && {
             title,
             pinned: !!pinned
           })
-        }
-      })
+        })
+      )
     )
   }
 
@@ -75,5 +82,6 @@ export const useSectionStorage = () => {
     getSection,
     editSection,
     importSections,
+    checkImportConflicts
   }
 }

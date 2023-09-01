@@ -9,6 +9,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {Textarea} from "../atoms/Textarea.jsx";
 import {isValidJsonString} from "../../utils/isValidJsonString.js";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import {faWarning} from "@fortawesome/free-solid-svg-icons/faWarning";
 
 const isValidJsonData = (data) => {
   console.log(data)
@@ -41,19 +43,20 @@ export const Import = () => {
   const [dataToImport, setDataToImport] = useState('')
   const [tasksToImport, setTasksToImport] = useState([])
   const [sectionsToImport, setSectionsToImport] = useState([])
+  const [conflictedSections, setConflictedSections] = useState([])
 
   const { importTasks } = useTask()
-  const { importSections } = useSection()
+  const { importSections, checkImportConflicts } = useSection()
 
   const [dataLoaded, setDataLoaded] = useState(false)
   const [invalidJsonData, setInvalidJsonData] = useState(false)
+  const [askConfirmImport, setAskConfirmImport] = useState(false)
 
   const validateAndParseData = (e) => {
     const data = e.target.value
     setDataToImport(data)
 
     if (!isValidJsonString(data)) {
-      console.log('invalid string')
       setInvalidJsonData(true)
       return
     }
@@ -64,9 +67,10 @@ export const Import = () => {
       return
     }
 
+    setInvalidJsonData(false)
     setTasksToImport(parsedData.tasks)
     setSectionsToImport(parsedData.sections)
-    setInvalidJsonData(false)
+    setConflictedSections(checkImportConflicts(parsedData.sections))
   }
 
   const importData = () => {
@@ -110,15 +114,31 @@ export const Import = () => {
           )}
 
           {dataToImport && !invalidJsonData && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               <p>
-              <span className="text-sm text-zinc-400">
-                Data to be imported:
-              </span><br/>
+                <span className="text-sm text-zinc-400">
+                  Data to be imported:
+                </span><br/>
                 <span>
-                {tasksToImport.length} task{tasksToImport.length > 1 ? 's' : ''} and {sectionsToImport.length} section{sectionsToImport.length > 1 ? 's' : ''}
-              </span>
+                  {tasksToImport.length} task{tasksToImport.length > 1 ? 's' : ''} and {sectionsToImport.length} section{sectionsToImport.length > 1 ? 's' : ''}
+                </span>
               </p>
+
+              {!!conflictedSections.length && (
+                <div className="bg-zinc-800 p-4 rounded border border-zinc-600">
+                  <div className="flex items-start gap-2">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-3 mt-1.5" />
+                    <p>
+                      <span className="text-sm text-zinc-400">
+                        Conflicts found. This following sections already exists in your data. Continue with the import to replace them.
+                      </span><br/>
+                      <span className="text-sm">
+                        {conflictedSections.map((section) => section.title).join(', ')}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
 
               <div className="w-full flex flex-col items-center gap-2">
                 {dataLoaded ? (
@@ -127,11 +147,26 @@ export const Import = () => {
                     Import completed!
                   </span>
                 ): (
-                  <Button
-                    text="Import"
-                    className="w-full"
-                    onClick={importData}
-                  />
+                  askConfirmImport ? (
+                    <div className="flex w-full flex-col gap-2">
+                      <Button
+                        icon={faExclamationCircle}
+                        text="Confirm"
+                        onClick={importData}
+                      />
+                      <Button
+                        type="secondary"
+                        text="Cancel"
+                        onClick={() => setAskConfirmImport(false)}
+                      />
+                    </div>
+                  ) : (
+                    <Button
+                      text="Import"
+                      className="w-full"
+                      onClick={() => setAskConfirmImport(true)}
+                    />
+                  )
                 )}
               </div>
             </div>
