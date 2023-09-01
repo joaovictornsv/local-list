@@ -10,7 +10,6 @@ import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {Textarea} from "../atoms/Textarea.jsx";
 import {isValidJsonString} from "../../utils/isValidJsonString.js";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
-import {faWarning} from "@fortawesome/free-solid-svg-icons/faWarning";
 
 const isValidJsonData = (data) => {
   console.log(data)
