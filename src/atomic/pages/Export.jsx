@@ -71,12 +71,12 @@ export const Export = () => {
         <Button
           className="w-max"
           icon={faArrowLeft}
-          text={sectionId ? 'Section' : 'Home'}
+          text={sectionId ? 'Section' : 'Share'}
           type="ghost"
           onClick={() => navigate(
             sectionId
               ? RoutePaths.SECTION.replace(':sectionId', section.id)
-              : RoutePaths.HOME
+              : RoutePaths.SHARE
           )}
         />
 

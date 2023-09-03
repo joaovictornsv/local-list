@@ -4,17 +4,16 @@ import {useNavigate} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {Textarea} from "../atoms/Textarea.jsx";
 import {isValidJsonString} from "../../utils/isValidJsonString.js";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import {handleClickOutside} from "../../utils/handleClickOutside.js";
 
 const isValidJsonData = (data) => {
-  console.log(data)
   if (!Array.isArray(data.sections) || !Array.isArray(data.tasks)) {
-    console.log('not a array')
     return false
   }
 
@@ -30,9 +29,6 @@ const isValidJsonData = (data) => {
       task.title !== undefined
     )
   }) : true
-
-  console.log('validSections', validSections)
-  console.log('validTasks', validTasks)
 
   return !(!validTasks || !validSections);
 }
@@ -50,6 +46,15 @@ export const Import = () => {
   const [dataLoaded, setDataLoaded] = useState(false)
   const [invalidJsonData, setInvalidJsonData] = useState(false)
   const [askConfirmImport, setAskConfirmImport] = useState(false)
+  const wrapperRef = useRef(null);
+
+  const onClickOutsideCancelButton = () => {
+    setAskConfirmImport(false)
+  }
+
+  useEffect(() => {
+    handleClickOutside({wrapperRef, onClickOutside: onClickOutsideCancelButton })
+  }, [wrapperRef]);
 
   const validateAndParseData = (e) => {
     const data = e.target.value
@@ -84,9 +89,9 @@ export const Import = () => {
         <Button
           className="w-max"
           icon={faArrowLeft}
-          text="Home"
+          text="Share"
           type="ghost"
-          onClick={() => navigate( RoutePaths.HOME)}
+          onClick={() => navigate(RoutePaths.SHARE)}
         />
 
         <div className="flex flex-col gap-8 w-full">
@@ -146,26 +151,22 @@ export const Import = () => {
                     Import completed!
                   </span>
                 ): (
-                  askConfirmImport ? (
-                    <div className="flex w-full flex-col gap-2">
+                  <div className="flex w-full flex-col gap-2">
+                    {askConfirmImport ? (
                       <Button
+                        ref={wrapperRef}
                         icon={faExclamationCircle}
                         text="Confirm"
                         onClick={importData}
                       />
+                    ) : (
                       <Button
-                        type="secondary"
-                        text="Cancel"
-                        onClick={() => setAskConfirmImport(false)}
+                        text="Import"
+                        className="w-full"
+                        onClick={() => setAskConfirmImport(true)}
                       />
-                    </div>
-                  ) : (
-                    <Button
-                      text="Import"
-                      className="w-full"
-                      onClick={() => setAskConfirmImport(true)}
-                    />
-                  )
+                    )}
+                  </div>
                 )}
               </div>
             </div>
