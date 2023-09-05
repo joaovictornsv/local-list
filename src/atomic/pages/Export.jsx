@@ -38,10 +38,11 @@ export const Export = () => {
       ? [section]
       : sections
 
-    const minifiedTasks = tasksToExport.map(({title, done, sectionId}) => ({
+    const minifiedTasks = tasksToExport.map(({title, done, sectionId, pinned}) => ({
       title,
       done,
-      ...(sectionId && {sectionId})
+      ...(sectionId && {sectionId}),
+      ...(pinned && {pinned})
     }))
 
     const data = JSON.stringify({

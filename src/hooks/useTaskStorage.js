@@ -44,9 +44,27 @@ export const useTaskStorage = () => {
       ...task,
       id: generateRandomUuid(),
     }))
+
+    const newIndependentTasks = tasksToLoad.filter((task) => !task.sectionId)
+    const newSectionTasks = tasksToLoad.filter((task) => !!task.sectionId)
+
+    const sectionTasksNonConflicted = newSectionTasks.map((newSectionTask) => {
+      const taskSectionExists = getTasksBySectionId(newSectionTask.sectionId).find(
+        (task) => task.title === newSectionTask.title
+      )
+      if (!taskSectionExists) {
+        return newSectionTask
+      }
+
+      taskSectionExists.done = newSectionTask.done
+      taskSectionExists.pinned = newSectionTask.pinned
+      return null
+    }).filter(Boolean)
+
     saveTasks([
       ...tasks,
-      ...tasksToLoad,
+      ...newIndependentTasks,
+      ...sectionTasksNonConflicted,
     ])
   }
 
