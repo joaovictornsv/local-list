@@ -12,6 +12,12 @@ import {RoutePaths} from "../../router/RoutePaths.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
 
+const FormWrapper = ({children, editMode, ...rest}) => (
+  editMode
+    ? <form {...rest}>{children}</form>
+    : <div {...rest}>{children}</div>
+)
+
 export const ListItem = ({
   item,
   isSection
@@ -43,8 +49,11 @@ export const ListItem = ({
     setEditMode(true)
   }
 
+  const saveChanges = (e) => {
+    if (e) {
+      e.preventDefault()
+    }
 
-  const saveChanges = () => {
     if (!validateInput()) {
       return
     }
@@ -67,7 +76,7 @@ export const ListItem = ({
 
 
   return (
-    <div className="flex gap-2 justify-between items-start">
+    <FormWrapper editMode={editMode} onSubmit={saveChanges} className="flex gap-2 justify-between items-start">
       {editMode ? (
         <Input
           value={inputValue}
@@ -105,7 +114,13 @@ export const ListItem = ({
         {item.pinned && !editMode && <FontAwesomeIcon icon={faThumbtack} className="text-sm rotate-45 text-zinc-400"/>}
 
         {editMode ? (
-          <Button className="w-max" icon={faSave} onClick={saveChanges} type="ghost"/>
+          <Button
+            isSubmit
+            className="w-max"
+            icon={faSave}
+            onClick={saveChanges}
+            type="ghost"
+          />
         ): (
           <Options
             onDelete={() => removeItem(item.id)}
@@ -115,7 +130,6 @@ export const ListItem = ({
           />
         )}
       </div>
-
-    </div>
+    </FormWrapper>
   )
 }
