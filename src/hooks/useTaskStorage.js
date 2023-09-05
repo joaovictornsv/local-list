@@ -22,10 +22,10 @@ export const useTaskStorage = () => {
     return tasks.filter((task) => task.sectionId === sectionId)
   }
 
-  const saveTasks = (tasks) => {
-    const raw = JSON.stringify(tasks)
+  const saveTasks = (tasksToSave) => {
+    const raw = JSON.stringify(tasksToSave)
     localStorage.setItem(TASKS_STORAGE_KEY, raw)
-    setTasks(tasks)
+    setTasks(tasksToSave)
   }
 
   const toggleTaskDone = (taskId) => {
@@ -64,15 +64,13 @@ export const useTaskStorage = () => {
 
   const editTask = (taskId, { title, pinned }) => {
     saveTasks(
-      tasks.map((task) => {
-        return {
-          ...task,
-          ...(task.id === taskId && {
-            title,
-            pinned: !!pinned
-          })
-        }
-      })
+      tasks.map((task) => ({
+        ...task,
+        ...(task.id === taskId && {
+          title,
+          pinned: !!pinned
+        })
+      }))
     )
   }
 
@@ -89,7 +87,7 @@ export const useTaskStorage = () => {
   }
 
   return {
-    tasks,
+    tasks: tasks.slice(0),
     newTask,
     removeTask,
     toggleTaskDone,

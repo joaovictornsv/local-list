@@ -1,4 +1,4 @@
-import {Task} from "../molecules/Task.jsx";
+import {ListItem} from "../molecules/ListItem.jsx";
 import {sortByPin} from "../../utils/sortByPin.js";
 
 export const TaskList = ({ tasks }) => {
@@ -19,7 +19,7 @@ export const TaskList = ({ tasks }) => {
         </span>
       )}
       {tasks.sort(sortByPin).map((task) =>
-        <Task key={task.id} task={task} />
+        <ListItem key={task.id} item={task} />
       )}
     </div>
   )

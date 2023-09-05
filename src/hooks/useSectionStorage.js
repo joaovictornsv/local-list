@@ -20,10 +20,10 @@ export const useSectionStorage = () => {
     return sections.find((section) => section.id === sectionId)
   }
 
-  const saveSections = (sections) => {
-    const raw = JSON.stringify(sections)
+  const saveSections = (sectionsToSave) => {
+    const raw = JSON.stringify(sectionsToSave)
     localStorage.setItem(SECTIONS_STORAGE_KEY, raw)
-    setSections(sections)
+    setSections(sectionsToSave)
   }
 
   const newSection = ({ title }) => {
@@ -64,7 +64,7 @@ export const useSectionStorage = () => {
 
   const editSection = (sectionId, { title, pinned }) => {
     saveSections(
-      sections.map((section) =>({
+      sections.map((section) => ({
           ...section,
           ...(section.id === sectionId && {
             title,
@@ -76,7 +76,7 @@ export const useSectionStorage = () => {
   }
 
   return {
-    sections,
+    sections: sections.slice(0),
     newSection,
     removeSection,
     getSection,

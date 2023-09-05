@@ -1,5 +1,5 @@
-import {Section} from "../molecules/Section.jsx";
 import {sortByPin} from "../../utils/sortByPin.js";
+import {ListItem} from "../molecules/ListItem.jsx";
 
 
 export const SectionList = ({sections}) => {
@@ -15,7 +15,7 @@ export const SectionList = ({sections}) => {
   return (
     <div className="flex flex-col gap-2">
       {sections.sort(sortByPin).map((section) =>
-        <Section key={section.id} section={section} />
+        <ListItem isSection key={section.id} item={section} />
       )}
     </div>
   )
