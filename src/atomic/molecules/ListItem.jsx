@@ -87,8 +87,6 @@ export const ListItem = ({
 
               <a
                 href={RoutePaths.SECTION.replace(':sectionId', item.id)}
-                target="_blank"
-                rel="noreferrer"
                 className="text-sm text-inherit hover:text-inherit font-normal line-clamp-3 break-words"
                 title={`Open ${item.title}`}
               >
