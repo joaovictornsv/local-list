@@ -10,6 +10,7 @@ import {faThumbtack} from "@fortawesome/free-solid-svg-icons/faThumbtack";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
+import {useNavigate} from "react-router-dom";
 
 const FormWrapper = ({children, editMode, ...rest}) => (
   editMode
@@ -21,6 +22,7 @@ export const ListItem = ({
   item,
   isSection
 }) => {
+  const navigate = useNavigate()
   const [editMode, setEditMode] = useState(false)
   const [inputValue, setInputValue] = useState(item.title)
   const [showInputError, setShowInputError] = useState(false)
@@ -68,6 +70,10 @@ export const ListItem = ({
     editItem(item.id, { ...item, pinned: !item.pinned })
   }
 
+  const navigateToSectionPage = () => {
+    navigate(`${RoutePaths.SECTION.replace(':sectionId', item.id)}`)
+  }
+
   return (
     <FormWrapper editMode={editMode} onSubmit={saveChanges} className="flex gap-2 justify-between items-start">
       {editMode ? (
@@ -82,19 +88,22 @@ export const ListItem = ({
         isSection
         ? (
           <div className="w-max">
-            <p className="flex items-start gap-2 cursor-pointer hover:text-zinc-50">
-              <FontAwesomeIcon className="py-1 h-3" icon={faArrowUpRightFromSquare} />
-
+            <p className="flex text-sm items-start gap-2" title={`Open ${item.title}`}>
               <a
                 href={RoutePaths.SECTION.replace(':sectionId', item.id)}
-                className="text-sm text-inherit hover:text-inherit font-normal line-clamp-3 break-words"
-                title={`Open ${item.title}`}
+                target="_blank"
+                rel="noreferrer"
+                className=" text-inherit font-normal line-clamp-3 break-words cursor-pointer hover:text-zinc-50"
               >
+                <FontAwesomeIcon className="py-1 h-3" icon={faArrowUpRightFromSquare} />
+              </a>
+
+              <span className="text-sm cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
                 {item.title}{' '}
-                <span className="text-sm text-zinc-400">
+                <span className="text-zinc-400">
                   {tasks.filter(t => t.done).length}/{tasks.length}
                 </span>
-              </a>
+              </span>
             </p>
           </div>
         ) : (
