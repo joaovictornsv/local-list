@@ -89,9 +89,9 @@ export const Import = () => {
         <Button
           className="w-max"
           icon={faArrowLeft}
-          text="Share"
+          text="Actions"
           type="ghost"
-          onClick={() => navigate(RoutePaths.SHARE)}
+          onClick={() => navigate(RoutePaths.OPTIONS)}
         />
 
         <div className="flex flex-col gap-8 w-full">

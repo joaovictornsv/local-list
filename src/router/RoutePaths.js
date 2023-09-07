@@ -3,5 +3,5 @@ export const RoutePaths = {
   SECTION: '/section/:sectionId',
   EXPORT: '/export',
   IMPORT: '/import',
-  SHARE: '/share'
+  OPTIONS: '/options'
 }

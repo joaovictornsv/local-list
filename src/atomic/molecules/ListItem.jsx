@@ -4,7 +4,7 @@ import {useTask} from "../../contexts/useTask.js";
 import {Input} from "../atoms/Input.jsx";
 import {useRef, useState} from "react";
 import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
-import {Options} from "./Options.jsx";
+import {Actions} from "./Actions.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faThumbtack} from "@fortawesome/free-solid-svg-icons/faThumbtack";
 import {RoutePaths} from "../../router/RoutePaths.js";
@@ -121,7 +121,7 @@ export const ListItem = ({
             type="ghost"
           />
         ): (
-          <Options
+          <Actions
             onDelete={() => removeItem(item.id)}
             onEdit={startEditMode}
             onPin={onPinItem}

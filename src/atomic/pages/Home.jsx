@@ -6,7 +6,7 @@ import {SectionList} from "../organisms/SectionList.jsx";
 import {Button} from "../atoms/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
-import {faShare} from "@fortawesome/free-solid-svg-icons/faShare";
+import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ export const Home = () => {
   return (
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex flex-col items-start justify-between gap-12">
-        <Button className="w-max" icon={faShare} text="Share" type="ghost" onClick={() => navigate(RoutePaths.SHARE)}/>
+        <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
 
         <h1 className="text-3xl font-bold">
           LocalList

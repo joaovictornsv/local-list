@@ -9,7 +9,7 @@ import {faSlash} from "@fortawesome/free-solid-svg-icons/faSlash";
 import {handleClickOutside} from "../../utils/handleClickOutside.js";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
 
-export const Options = ({
+export const Actions = ({
   onEdit,
   onDelete,
   onPin,

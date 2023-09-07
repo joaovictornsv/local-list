@@ -77,7 +77,7 @@ export const Export = () => {
           onClick={() => navigate(
             sectionId
               ? RoutePaths.SECTION.replace(':sectionId', section.id)
-              : RoutePaths.SHARE
+              : RoutePaths.OPTIONS
           )}
         />
 

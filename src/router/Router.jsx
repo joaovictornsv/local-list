@@ -6,7 +6,7 @@ import {RoutePaths} from "./RoutePaths.js";
 import {Layout} from "./Layout.jsx";
 import {Export} from "../atomic/pages/Export.jsx";
 import {Import} from "../atomic/pages/Import.jsx";
-import {Share} from "../atomic/pages/Share.jsx";
+import {Options} from "../atomic/pages/Options.jsx";
 
 const ROUTES_COMPONENTS = {
   [RoutePaths.HOME]: (
@@ -29,9 +29,9 @@ const ROUTES_COMPONENTS = {
       <Import />
     </Layout>
   ),
-  [RoutePaths.SHARE]: (
+  [RoutePaths.OPTIONS]: (
     <Layout>
-      <Share />
+      <Options />
     </Layout>
   ),
 }
