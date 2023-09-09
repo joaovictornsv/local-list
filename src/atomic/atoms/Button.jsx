@@ -17,7 +17,6 @@ const BUTTON_TYPES = {
   primary: 'text-zinc-900 hover:text-zinc-900 bg-zinc-200 border-none hover:bg-zinc-300 transition-colors duration-75 focus:outline-none',
   secondary: 'text-zinc-200 hover:text-zinc-200 bg-zinc-950 border-none hover:bg-zinc-900 transition-colors duration-75 focus:outline-none',
   ghost: 'text-zinc-200 hover:text-zinc-200 border-none bg-transparent focus:outline-none transition-colors duration-75 hover:bg-zinc-900',
-  outline: 'text-zinc-200 hover:text-zinc-200 border-zinc-700 bg-transparent focus:outline-none transition-colors duration-75 hover:bg-zinc-800 hover:border-zinc-600',
   danger: 'text-zinc-200 hover:text-zinc-200 border-none bg-red-600 focus:outline-none transition-colors duration-75 hover:bg-red-700'
 }
 

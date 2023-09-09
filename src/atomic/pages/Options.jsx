@@ -44,7 +44,7 @@ export const Options = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
               <Button
                 icon={faFileExport}
                 onClick={() => navigate(RoutePaths.EXPORT)}
@@ -71,19 +71,19 @@ export const Options = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <Button
-                icon={faGithub}
-                onClick={openRepository}
-                to="https://github.com/joaovictornsv/local-list"
-                text="See repository"
-                type="secondary"
-              />
+            <div className="flex gap-2">
               <Button
                 type="danger"
                 icon={faYoutube}
                 to="https://youtu.be/E84Y0TnaPQM"
                 text="Presentation"
+              />
+              <Button
+                icon={faGithub}
+                onClick={openRepository}
+                to="https://github.com/joaovictornsv/local-list"
+                text="Repository"
+                type="secondary"
               />
             </div>
           </div>
