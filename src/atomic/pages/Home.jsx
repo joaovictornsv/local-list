@@ -21,7 +21,7 @@ export const Home = () => {
 
   return (
     <div className="w-full flex flex-col justify-start gap-8">
-      <div className="flex flex-col items-start justify-between gap-12" ref={headerRef}>
+      <div className="flex flex-col items-start justify-between gap-8" ref={headerRef}>
         <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
 
         <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export const Home = () => {
 
       {!isHeaderInViewPort && (
         <div className="fixed left-0 right-0 top-0 z-20 animate-[fadeIn_250ms] bg-zinc-800 drop-shadow-sm py-2">
-          <div className="flex items-center justify-between w-full max-w-[500px] px-6 mx-auto gap-2">
+          <div className="flex items-center justify-between w-full max-w-[550px] px-6 mx-auto gap-2">
             <div className="flex items-center gap-2 self-center ">
               <Logo className="h-auto w-4"/>
               <span className="text-sm font-bold">
