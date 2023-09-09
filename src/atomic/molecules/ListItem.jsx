@@ -142,7 +142,7 @@ export const ListItem = ({
         {editMode ? (
           <div className="flex flex-items gap-1">
             <Select
-              className="w-22"
+              className="w-full"
               value={selectedSection}
               onChange={(e) => setSelectedSection(e.target.value)}
             >
