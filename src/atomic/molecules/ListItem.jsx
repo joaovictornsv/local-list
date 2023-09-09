@@ -109,24 +109,24 @@ export const ListItem = ({
       ): (
         isSection
         ? (
-          <div className="w-max">
-            <p className="flex text-sm items-start gap-2" title={`Open ${item.title}`}>
+          <div className="w-max overflow-hidden">
+            <div className="flex text-sm items-start gap-2" title={`Open ${item.title}`}>
               <a
                 href={RoutePaths.SECTION.replace(':sectionId', item.id)}
                 target="_blank"
                 rel="noreferrer"
-                className=" text-inherit font-normal line-clamp-3 break-words cursor-pointer hover:text-zinc-50"
+                className="text-inherit font-normal cursor-pointer hover:text-zinc-50"
               >
                 <FontAwesomeIcon className="py-1 h-3" icon={faArrowUpRightFromSquare} />
               </a>
 
-              <span className="text-sm cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
+              <span className="text-sm gap-2 break-words line-clamp-3 cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
                 {item.title}{' '}
                 <span className="text-zinc-400">
                   {tasks.filter(t => t.done).length}/{tasks.length}
                 </span>
               </span>
-            </p>
+            </div>
           </div>
         ) : (
           <Checkbox
@@ -145,7 +145,7 @@ export const ListItem = ({
           <div className="flex flex-items gap-1">
             {!isSection && (
               <Select
-                className="w-full"
+                className="w-32"
                 value={selectedSection}
                 onChange={(e) => setSelectedSection(e.target.value)}
               >
