@@ -1,19 +1,6 @@
-<style>
-    div.banner {
-        height: 180px;
-        width: 80%;
-        background-image: url("https://github.com/joaovictornsv/local-list/blob/main/public/banner.png?raw=true");
-        background-size: cover;
-        background-position: center;
-    }
-    div.center {
-        text-align:center;
-        margin: 0 auto;
-    }
-    table td {text-align: left;}
-</style>
-
-<div class="banner center"></div>
+<div align="center">
+    <img src="https://github.com/joaovictornsv/local-list/blob/main/public/banner.png?raw=true" alt="Logo" width="60%" />
+</div>
 
 ---
 
@@ -26,7 +13,14 @@ Without thousands of resources, just enough, the LocalList app helps you to remi
 ### 💡 How use
 You can add your tasks and organize their inside sections. Furthermore, you can edit, remove and pin our tasks and sections.
 
---- 
+---
+
+### 🚀 Technologies
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [zCloud](https://zcloud.ws/) (Hosting)
+
+---
 
 ### 🎁 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -34,10 +28,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ---
 
 ### ⚖️ License
-MIT License - [About](https://github.com/joaovictornsv/local-list/blob/main/LICENSE)
+[MIT License](https://github.com/joaovictornsv/local-list/blob/main/LICENSE)
 
 ---
 
-<div class="center">
+<div align="center">
     <span>Made with 🤍 by <a href="https://github.com/joaovictornsv">João Victor</a></span>
 </div>
