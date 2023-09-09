@@ -36,7 +36,7 @@ export const Options = () => {
         <div className="flex flex-col gap-12 w-full">
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-1">
-              <h2 className="text-2xl text-zinc-200 font-semibold">
+              <h2 className="text-xl text-zinc-200 font-semibold">
                 Share data
               </h2>
               <p className="text-sm text-zinc-400">
@@ -63,7 +63,7 @@ export const Options = () => {
 
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-1">
-              <h2 className="text-2xl text-zinc-200 font-semibold">
+              <h2 className="text-xl text-zinc-200 font-semibold">
                 About
               </h2>
               <p className="text-sm text-zinc-400">
