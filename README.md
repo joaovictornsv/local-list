@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/joaovictornsv/local-list/blob/main/public/banner.png?raw=true" alt="Logo" width="60%" />
+    <img src="https://github.com/joaovictornsv/local-list/blob/main/public/banner.png?raw=true" alt="Logo" width="80%" />
 </div>
 
 ---
