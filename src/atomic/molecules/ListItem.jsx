@@ -65,7 +65,9 @@ export const ListItem = ({
 
     editItem(item.id, {
       ...item,
-      sectionId: selectedSection === NO_SECTION_SELECT_VALUE ? null : selectedSection,
+      ...(!isSection && {
+        sectionId: selectedSection === NO_SECTION_SELECT_VALUE ? null : selectedSection,
+      }),
       title: inputValue
     })
     setEditMode(false)
@@ -141,18 +143,20 @@ export const ListItem = ({
 
         {editMode ? (
           <div className="flex flex-items gap-1">
-            <Select
-              className="w-full"
-              value={selectedSection}
-              onChange={(e) => setSelectedSection(e.target.value)}
-            >
-              <option value={NO_SECTION_SELECT_VALUE}>No section</option>
-              {sections.map((section) => (
-                <option key={section.id} value={section.id}>
-                  {section.title}
-                </option>
-              ))}
-            </Select>
+            {!isSection && (
+              <Select
+                className="w-full"
+                value={selectedSection}
+                onChange={(e) => setSelectedSection(e.target.value)}
+              >
+                <option value={NO_SECTION_SELECT_VALUE}>No section</option>
+                {sections.map((section) => (
+                  <option key={section.id} value={section.id}>
+                    {section.title}
+                  </option>
+                ))}
+              </Select>
+            )}
 
             <Button
               isSubmit
