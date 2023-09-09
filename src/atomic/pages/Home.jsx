@@ -7,6 +7,8 @@ import {Button} from "../atoms/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
+import {ReactComponent as Logo } from '../../assets/logo-with-bg.svg'
+import {useVisibility} from "../../hooks/useVisibility.js";
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -15,15 +17,35 @@ export const Home = () => {
 
   const tasks = getIndependentTasks()
 
+  const [isHeaderInViewPort, headerRef] = useVisibility();
+
   return (
     <div className="w-full flex flex-col justify-start gap-8">
-      <div className="flex flex-col items-start justify-between gap-12">
+      <div className="flex flex-col items-start justify-between gap-12" ref={headerRef}>
         <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
 
-        <h1 className="text-3xl font-bold">
-          LocalList
-        </h1>
+        <div className="flex items-center gap-2">
+          <Logo className="h-auto w-8"/>
+          <h1 className="text-3xl font-bold">
+            LocalList
+          </h1>
+        </div>
       </div>
+
+      {!isHeaderInViewPort && (
+        <div className="fixed left-0 right-0 top-0 z-20 animate-[fadeIn_250ms] bg-zinc-800 drop-shadow-sm py-2">
+          <div className="flex items-center justify-between w-full max-w-[500px] px-6 mx-auto gap-2">
+            <div className="flex items-center gap-2 self-center ">
+              <Logo className="h-auto w-4"/>
+              <span className="text-sm font-bold">
+                LocalList
+              </span>
+            </div>
+
+            <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
+          </div>
+        </div>
+      )}
 
       <AddForm />
 

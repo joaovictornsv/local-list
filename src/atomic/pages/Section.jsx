@@ -8,6 +8,8 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import {useTask} from "../../contexts/useTask.js";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {faFileExport} from "@fortawesome/free-solid-svg-icons/faFileExport";
+import {useVisibility} from "../../hooks/useVisibility.js";
+import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
 
 export const Section = () => {
   const navigate = useNavigate()
@@ -18,6 +20,8 @@ export const Section = () => {
   const [section, setSection] = useState()
   const [tasks, setTasks] = useState()
   const [isLoading, setIsLoading] = useState(true)
+
+  const [isHeaderInViewPort, headerRef] = useVisibility(54);
 
   useEffect(() => {
     setSection(getSection(sectionId))
@@ -35,10 +39,21 @@ export const Section = () => {
 
   return (
     <div className="w-full flex flex-col justify-start gap-12">
-      <div className="flex items-center gap-2 justify-between">
+      <div className="flex items-center gap-2 justify-between" ref={headerRef}>
         <Button className="w-max" icon={faArrowLeft} text="Home" type="ghost" onClick={() => navigate(RoutePaths.HOME)} />
         <Button className="w-max" icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}/>
       </div>
+
+      {!isHeaderInViewPort && (
+        <div className="fixed left-0 right-0 top-0 z-20 animate-[fadeIn_250ms] bg-zinc-800 drop-shadow-sm py-2">
+          <div className="flex items-center justify-between w-full max-w-[500px] px-6 mx-auto gap-2">
+            <span className="text-sm font-bold">
+              {section.title}
+            </span>
+            <Button className="w-max" icon={faHouse} text="Home" type="ghost" onClick={() => navigate(RoutePaths.HOME)} />
+          </div>
+        </div>
+      )}
 
 
       {section ? (
