@@ -75,18 +75,19 @@ export const useTaskStorage = () => {
         id: generateRandomUuid(),
         done: false,
         title: title,
-        ...(sectionId && {sectionId})
+        sectionId: sectionId || null
       }
     ])
   }
 
-  const editTask = (taskId, { title, pinned }) => {
+  const editTask = (taskId, { sectionId, title, pinned }) => {
     saveTasks(
       tasks.map((task) => ({
         ...task,
         ...(task.id === taskId && {
           title,
-          pinned: !!pinned
+          pinned: !!pinned,
+          sectionId
         })
       }))
     )

@@ -11,12 +11,16 @@ import {RoutePaths} from "../../router/RoutePaths.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
 import {useNavigate} from "react-router-dom";
+import {faClose} from "@fortawesome/free-solid-svg-icons/faClose";
+import {Select} from "../atoms/Select.jsx";
 
 const FormWrapper = ({children, editMode, ...rest}) => (
   editMode
     ? <form {...rest}>{children}</form>
     : <div {...rest}>{children}</div>
 )
+
+const NO_SECTION_SELECT_VALUE = 'no-section'
 
 export const ListItem = ({
   item,
@@ -25,12 +29,13 @@ export const ListItem = ({
   const navigate = useNavigate()
   const [editMode, setEditMode] = useState(false)
   const [inputValue, setInputValue] = useState(item.title)
+  const [selectedSection, setSelectedSection] = useState(item.sectionId || NO_SECTION_SELECT_VALUE)
   const [showInputError, setShowInputError] = useState(false)
 
   const inputRef = useRef(null)
 
   const { toggleTaskDone, removeTask, editTask, getTasksBySectionId } = useTask()
-  const { editSection, removeSection } = useSection()
+  const { sections, editSection, removeSection } = useSection()
 
   const tasks = isSection ? getTasksBySectionId(item.id) : []
   const editItem = isSection ? editSection : editTask
@@ -57,7 +62,12 @@ export const ListItem = ({
     if (!validateInput()) {
       return
     }
-    editItem(item.id, { ...item, title: inputValue })
+
+    editItem(item.id, {
+      ...item,
+      sectionId: selectedSection === NO_SECTION_SELECT_VALUE ? null : selectedSection,
+      title: inputValue
+    })
     setEditMode(false)
   }
 
@@ -74,10 +84,20 @@ export const ListItem = ({
     navigate(`${RoutePaths.SECTION.replace(':sectionId', item.id)}`)
   }
 
+  const onKeyDownInput = (e) => {
+    if (e.key !== 'Escape') {
+      return
+    }
+
+    e.preventDefault()
+    setEditMode(false)
+  }
+
   return (
     <FormWrapper editMode={editMode} onSubmit={saveChanges} className="flex gap-2 justify-between items-start">
       {editMode ? (
         <Input
+          onKeyDown={onKeyDownInput}
           value={inputValue}
           onChange={onChange}
           className="bg-transparent"
@@ -120,13 +140,36 @@ export const ListItem = ({
         {item.pinned && !editMode && <FontAwesomeIcon icon={faThumbtack} className="text-sm rotate-45 text-zinc-400"/>}
 
         {editMode ? (
-          <Button
-            isSubmit
-            className="w-max"
-            icon={faSave}
-            onClick={saveChanges}
-            type="ghost"
-          />
+          <div className="flex flex-items gap-1">
+            <Select
+              className="w-22"
+              value={selectedSection}
+              onChange={(e) => setSelectedSection(e.target.value)}
+            >
+              <option value={NO_SECTION_SELECT_VALUE}>No section</option>
+              {sections.map((section) => (
+                <option key={section.id} value={section.id}>
+                  {section.title}
+                </option>
+              ))}
+            </Select>
+
+            <Button
+              isSubmit
+              className="w-max"
+              icon={faSave}
+              onClick={saveChanges}
+              type="ghost"
+            />
+
+            <Button
+              className="w-max"
+              icon={faClose}
+              onClick={() => setEditMode(false)}
+              type="ghost"
+            />
+          </div>
+
         ): (
           <Actions
             onDelete={() => removeItem(item.id)}
