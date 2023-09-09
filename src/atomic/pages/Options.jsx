@@ -81,10 +81,9 @@ export const Options = () => {
               />
               <Button
                 type="danger"
-                disabled
-                onClick={() => navigate(RoutePaths.IMPORT)}
                 icon={faYoutube}
-                text="Presentation (coming soon)"
+                to="https://youtu.be/E84Y0TnaPQM"
+                text="Presentation"
               />
             </div>
           </div>
