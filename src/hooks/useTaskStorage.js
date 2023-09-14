@@ -68,6 +68,25 @@ export const useTaskStorage = () => {
     ])
   }
 
+  const duplicateSectionTasks = ({
+    sectionId,
+    newSectionId
+  }) => {
+    const sectionTasks = getTasksBySectionId(sectionId)
+
+    const duplicatedSectionTasks = sectionTasks.map(
+      (task) => ({
+        ...task,
+        id: generateRandomUuid(),
+        sectionId: newSectionId
+      })
+    )
+    saveTasks([
+      ...tasks,
+      ...duplicatedSectionTasks
+    ])
+  }
+
   const newTask = ({ title, sectionId }) => {
     saveTasks([
       ...tasks,
@@ -115,5 +134,6 @@ export const useTaskStorage = () => {
     getTasksBySectionId,
     removeTasksFromSectionId,
     importTasks,
+    duplicateSectionTasks
   }
 }

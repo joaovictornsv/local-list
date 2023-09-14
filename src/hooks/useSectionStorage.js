@@ -61,6 +61,30 @@ export const useSectionStorage = () => {
     removeTasksFromSectionId(sectionId)
   }
 
+  const duplicateSection = (sectionId) => {
+    const sectionToDuplicate = getSection(sectionId)
+    if (!sectionToDuplicate) {
+      return
+    }
+    const newSectionId = generateRandomUuid()
+
+    const titleWithCopySuffix = `${sectionToDuplicate.title} (Copy)`
+    const duplicatedTitle =
+      sections.find((section) => section.title === titleWithCopySuffix)
+      ? `${titleWithCopySuffix} (Copy)`
+      : titleWithCopySuffix
+
+    const duplicated = {
+      ...sectionToDuplicate,
+      id: newSectionId,
+      title: duplicatedTitle
+    }
+
+    sections.push(duplicated)
+    saveSections(sections)
+    return newSectionId
+  }
+
 
   const editSection = (sectionId, { title, pinned }) => {
     saveSections(
@@ -81,6 +105,7 @@ export const useSectionStorage = () => {
     removeSection,
     getSection,
     editSection,
+    duplicateSection,
     importSections,
     checkImportConflicts
   }

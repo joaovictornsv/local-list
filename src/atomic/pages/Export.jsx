@@ -1,23 +1,27 @@
 import {Button} from "../atoms/Button.jsx";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
 import {RoutePaths} from "../../router/RoutePaths.js";
 import {faCopy} from "@fortawesome/free-solid-svg-icons/faCopy";
 import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {useEffect, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {Textarea} from "../atoms/Textarea.jsx";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const Export = () => {
   const navigate = useNavigate()
-  const {tasks, getTasksBySectionId} = useTask()
-  const {sections, getSection} = useSection()
+  const {tasks, getTasksBySectionId,duplicateSectionTasks} = useTask()
+  const {sections, getSection, duplicateSection} = useSection()
 
   const [exportData, setExportData] = useState('')
   const [copied, setCopied] = useState(false)
   const [exportingTasks, setExportingTasks] = useState([])
+  const [confirmDuplicating, setConfirmDuplicating] = useState(false)
+  const [duplicated, setDuplicated] = useState(false)
+  const [duplicatedSectionId, setDuplicatedSectionId] = useState('')
 
   const [urlSearchParams] = useSearchParams()
   const {sectionId} = Object.fromEntries(urlSearchParams)
@@ -62,6 +66,20 @@ export const Export = () => {
       })
   }
 
+  const duplicate = () => {
+    if (!sectionId) {
+      return
+    }
+
+    const newSectionId = duplicateSection(sectionId)
+    duplicateSectionTasks({
+      sectionId,
+      newSectionId
+    })
+    setDuplicated(true)
+    setDuplicatedSectionId(newSectionId)
+  }
+
   if (!exportData) {
     return null
   }
@@ -88,6 +106,7 @@ export const Export = () => {
             </h1>
             <p className="text-sm text-zinc-400">
               Copy the json below to share your data with another device or browser.
+              {sectionId && 'If you prefer, you can duplicate this section as well.'}
             </p>
           </div>
 
@@ -114,18 +133,45 @@ export const Export = () => {
                 <div className="flex flex-col gap-2">
                   <Textarea rows="5" readOnly value={exportData} className="resize-none"  />
 
-                  <Button
-                    icon={faCopy}
-                    text="Copy"
-                    onClick={copyLinkToClipboard}
-                  />
+                  <div className="flex items-center gap-2">
+                    <Button
+                      icon={copied ? faCheck : faCopy}
+                      text={copied ? "Copied!" : "Copy"}
+                      onClick={copyLinkToClipboard}
+                    />
+                    {sectionId && !duplicated && !confirmDuplicating&& (
+                      <Button
+                        text="Duplicate"
+                        type="secondary"
+                        onClick={() => setConfirmDuplicating(true)}
+                      />
+                    )}
+
+                    {sectionId && !duplicated && confirmDuplicating && (
+                      <Button
+                        icon={faExclamationCircle}
+                        text="Confirm"
+                        type="secondary"
+                        onClick={duplicate}
+                      />
+                    )}
+
+                    {sectionId && duplicated && (
+                      <div className="w-full px-2">
+                        <p className="text-sm text-zinc-400 flex justify-center items-center gap-2">
+                          <FontAwesomeIcon icon={faCheck}/>
+                          <span>
+                            Duplicated!{' '}
+                            <Link to={`/section/${duplicatedSectionId}`} className="text-zinc-100 hover:text-zinc-50 text-sm">
+                              View
+                            </Link>
+                          </span>
+                        </p>
+                      </div>
+                    )}
+
+                  </div>
                 </div>
-                {copied && (
-                  <span className="text-sm flex justify-center items-center gap-2">
-                    <FontAwesomeIcon icon={faCheck}/>
-                    Copied!
-                  </span>
-                )}
               </div>
             </>
           )}
