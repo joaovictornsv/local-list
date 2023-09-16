@@ -5,12 +5,16 @@ import {useTask} from "../../contexts/useTask.js";
 import {useSection} from "../../contexts/useSection.js";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import {generateRandomPlaceholder} from "../../utils/generateRandomPlaceholder.js";
+import {useSettings} from "../../contexts/useSettings.js";
+import {SECTION_VALUE } from "../../hooks/useSettingsStorage.js";
 
 
 export const AddForm = ({ isSectionScope, sectionId }) => {
   const [inputValue, setInputValue] = useState('')
   const [showInputError, setShowInputError] = useState(false)
   const [randomPlaceholder, setRandomPlaceholder] = useState('')
+
+  const { settings } = useSettings()
 
   useEffect(() => {
     setRandomPlaceholder(generateRandomPlaceholder())
@@ -63,8 +67,14 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
     setInputValue(e.target.value)
   }
 
+  const onSubmit = isSectionScope
+    ? onAddTask
+    : settings.defaultItemToAdd === SECTION_VALUE
+    ? onAddSection
+    : onAddTask
+
   return (
-    <form onSubmit={onAddTask}>
+    <form onSubmit={onSubmit}>
       <div className="flex flex-col gap-2 ">
         <Input
           value={inputValue}
@@ -75,8 +85,22 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
           ref={inputRef}
         />
         <div className="flex items-center self-end gap-2">
-          <Button isSubmit onClick={onAddTask} icon={faPlus} text="Add task" className="w-max" />
-          {!isSectionScope && <Button onClick={onAddSection} icon={faPlus} text="Add section" className="w-max"/>}
+          <Button
+            isSubmit={isSectionScope || settings.defaultItemToAdd !== SECTION_VALUE}
+            onClick={onAddTask}
+            icon={faPlus}
+            text="Add task"
+            className="w-max"
+          />
+          {!isSectionScope && (
+            <Button
+              isSubmit={settings.defaultItemToAdd === SECTION_VALUE}
+              onClick={onAddSection}
+              icon={faPlus}
+              text="Add section"
+              className="w-max"
+            />
+          )}
         </div>
       </div>
     </form>

@@ -6,12 +6,22 @@ import {faFileExport} from "@fortawesome/free-solid-svg-icons/faFileExport";
 import {faFileImport} from "@fortawesome/free-solid-svg-icons/faFileImport";
 import {faGithub} from "@fortawesome/free-brands-svg-icons/faGithub";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons/faYoutube";
+import {Input} from "../atoms/Input.jsx";
+import {SECTION_VALUE, TASK_VALUE} from "../../hooks/useSettingsStorage.js";
+import {useSettings} from "../../contexts/useSettings.js";
+
+const DEFAULT_ITEM_NAME = 'defaultItem'
 
 export const Options = () => {
+  const { settings, changeDefaultItemToAdd } = useSettings()
   const navigate = useNavigate()
 
   const openRepository = () => {
     window.open("https://github.com/joaovictornsv/local-list")
+  }
+
+  const onChangeRadio = (e) => {
+    changeDefaultItemToAdd(e.target.value)
   }
 
   return (
@@ -34,6 +44,45 @@ export const Options = () => {
 
 
         <div className="flex flex-col gap-12 w-full">
+          <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-1">
+              <h2 className="text-xl text-zinc-200 font-semibold">
+                Default item to add
+              </h2>
+              <p className="text-sm text-zinc-400">
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                Choose you default item to add when you press "Enter" on home page form
+              </p>
+            </div>
+
+            <div className="flex gap-2 items-center justify-evenly">
+                <div>
+                  <Input
+                    type="radio"
+                    label="Task"
+                    name={DEFAULT_ITEM_NAME}
+                    value={TASK_VALUE}
+                    onChange={onChangeRadio}
+                    checked={settings.defaultItemToAdd === TASK_VALUE}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="radio"
+                    label="Section"
+                    className="focus:ring-0"
+                    name={DEFAULT_ITEM_NAME}
+                    value={SECTION_VALUE}
+                    onChange={onChangeRadio}
+                    checked={settings.defaultItemToAdd === SECTION_VALUE}
+                  />
+                </div>
+
+            </div>
+          </div>
+
+          <div className="bg-zinc-700 h-px w-full" />
+
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-1">
               <h2 className="text-xl text-zinc-200 font-semibold">

@@ -56,7 +56,7 @@ export const Button = React.forwardRef(({
     <Wrapper
       className={`text-sm w-full font-normal rounded-md py-1 px-2 inline-flex items-center justify-center gap-2 ${opacityClassName} ${typeClassName} ${sizeClassName} ${className}`}
       ref={ref}
-      {...(isSubmit & {type: 'submit'})}
+      type={isSubmit ? 'submit' : 'button'}
       {...rest}
     >
       {icon && <FontAwesomeIcon className={iconSizeClassName} icon={icon}/>}
