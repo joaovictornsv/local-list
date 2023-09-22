@@ -1,16 +1,16 @@
-import {Button} from "../atoms/Button.jsx";
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import {useNavigate} from "react-router-dom";
-import {RoutePaths} from "../../router/RoutePaths.js";
-import {useTask} from "../../contexts/useTask.js";
-import {useSection} from "../../contexts/useSection.js";
-import {useEffect, useRef, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
-import {Textarea} from "../atoms/Textarea.jsx";
-import {isValidJsonString} from "../../utils/isValidJsonString.js";
-import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
-import {handleClickOutside} from "../../utils/handleClickOutside.js";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSection } from "../../contexts/useSection.js";
+import { useTask } from "../../contexts/useTask.js";
+import { RoutePaths } from "../../router/RoutePaths.js";
+import { handleClickOutside } from "../../utils/handleClickOutside.js";
+import { isValidJsonString } from "../../utils/isValidJsonString.js";
+import { Button } from "../atoms/Button.jsx";
+import { Textarea } from "../atoms/Textarea.jsx";
 
 const isValidJsonData = (data) => {
   if (!Array.isArray(data.sections) || !Array.isArray(data.tasks)) {
@@ -109,6 +109,7 @@ export const Import = () => {
             value={dataToImport}
             onChange={validateAndParseData}
             className="resize-none"
+            placeholder={`{\n\t"tasks": [{ "title": "Learning ReactJS", "done": true }],\n\t"sections": []\n}`}
           />
 
           {dataToImport && invalidJsonData && (
