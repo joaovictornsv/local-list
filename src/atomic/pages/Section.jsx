@@ -71,7 +71,6 @@ export const Section = () => {
           ): (
             <div className="w-52 text-center mx-auto">
               <span className="text-sm text-zinc-400">
-                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 You have not created any tasks for this section
               </span>
             </div>

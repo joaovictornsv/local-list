@@ -100,7 +100,7 @@ export const Import = () => {
               Import data
             </h1>
             <p className="text-sm text-zinc-400">
-              Paste the JSON data bellow to import a external data
+              Paste the JSON data below to import external data
             </p>
           </div>
 
@@ -135,7 +135,7 @@ export const Import = () => {
                     <FontAwesomeIcon icon={faExclamationCircle} className="h-3 mt-1.5" />
                     <p>
                       <span className="text-sm text-zinc-400">
-                        Conflicts found. This following sections already exists in your data. Continue with the import to replace them.
+                        Conflicts found. The following sections already exist in your data. Continue with the import to replace them.
                       </span><br/>
                       <span className="text-sm">
                         {conflictedSections.map((section) => section.title).join(', ')}

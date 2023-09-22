@@ -105,7 +105,7 @@ export const Export = () => {
               Share your data
             </h1>
             <p className="text-sm text-zinc-400">
-              Copy the json below to share your data with another device or browser.
+              Copy the JSON below to share your data with another device or browser.
               {sectionId && 'If you prefer, you can duplicate this section as well.'}
             </p>
           </div>

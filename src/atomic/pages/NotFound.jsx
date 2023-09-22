@@ -10,10 +10,10 @@ export const NotFound = () => {
       <div className="flex flex-col gap-4 items-center">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">
-            You are lost?
+            Are you lost?
           </h1>
           <p className="text-sm text-zinc-400 text-center">
-            Be careful where you go...
+            Be careful where you go.
           </p>
         </div>
 

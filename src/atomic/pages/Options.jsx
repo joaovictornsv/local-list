@@ -51,7 +51,7 @@ export const Options = () => {
               </h2>
               <p className="text-sm text-zinc-400">
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
-                Choose you default item to add when you press "Enter" on home page form
+                Choose your default item to add when you press "Enter" on the home page form
               </p>
             </div>
 
@@ -89,7 +89,7 @@ export const Options = () => {
                 Share data
               </h2>
               <p className="text-sm text-zinc-400">
-                What you want to do?
+                What do you want to do?
               </p>
             </div>
 
