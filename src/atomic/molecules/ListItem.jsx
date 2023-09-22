@@ -159,18 +159,18 @@ export const ListItem = ({
             )}
 
             <Button
-              isSubmit
-              className="w-max"
-              icon={faSave}
-              onClick={saveChanges}
               type="ghost"
+              icon={faSave}
+              className="w-max"
+              onClick={saveChanges}
+              isSubmit
             />
 
             <Button
-              className="w-max"
-              icon={faClose}
-              onClick={() => setEditMode(false)}
               type="ghost"
+              icon={faClose}
+              className="w-max"
+              onClick={() => setEditMode(false)}
             />
           </div>
 

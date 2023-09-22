@@ -44,18 +44,41 @@ export const Actions = ({
 
   return (
     <div ref={wrapperRef} className="relative">
-      <Button icon={faEllipsisVertical} type="ghost" onClick={onClickToShowOptions}/>
+      <Button
+        type="ghost"
+        icon={faEllipsisVertical}
+        onClick={onClickToShowOptions}
+      />
 
       <div className={`${showOptions ? '': 'hidden'} flex items-center gap-1 z-50 mt-1 absolute bg-zinc-800 right-0 rounded p-1`}>
         <div className="relative">
-          <Button icon={faThumbtack} type="ghost" onClick={onClickToPin}/>
+          <Button
+            type="ghost"
+            icon={faThumbtack}
+            onClick={onClickToPin}
+          />
           {alreadyPinned && <FontAwesomeIcon className="absolute pointer-events-none -rotate-90 h-3 top-2 right-1/2 transform translate-x-1/2" icon={faSlash} onClick={onClickToPin}/> }
         </div>
-        <Button icon={faPencil} type="ghost" onClick={onEdit}/>
+        <Button
+          type="ghost"
+          icon={faPencil}
+          onClick={onEdit}
+        />
         {askingConfirmation ? (
-          <Button size="sm" icon={faExclamationCircle} text="Confirm" type="danger" onClick={onClickToDelete}/>
+          <Button
+            type="danger"
+            text="Confirm"
+            size="sm"
+            icon={faExclamationCircle}
+            onClick={onClickToDelete}
+          />
         ) : (
-          <Button className={askingConfirmation ? 'hidden': ''} icon={faTrash} type="ghost" onClick={() => setAskingConfirmation(true)}/>
+          <Button
+            type="ghost"
+            icon={faTrash}
+            className={askingConfirmation ? 'hidden': ''}
+            onClick={() => setAskingConfirmation(true)}
+          />
         )}
       </div>
     </div>

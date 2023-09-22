@@ -30,8 +30,21 @@ export const RemoveConfirmation = ({
 
   return (
     <>
-      <Button className={askingConfirmation ? '': 'hidden'} ref={wrapperRef} size="sm" icon={faWarning} text="Confirm" type="danger" onClick={removeAction}/>
-      <Button className={askingConfirmation ? 'hidden': ''} icon={faTrash} type="ghost" onClick={() => setAskingConfirmation(true)}/>
+      <Button
+        type="danger"
+        text="Confirm"
+        icon={faWarning}
+        size="sm"
+        ref={wrapperRef}
+        className={askingConfirmation ? '': 'hidden'}
+        onClick={removeAction}
+      />
+      <Button
+        type="ghost"
+        icon={faTrash}
+        className={askingConfirmation ? 'hidden': ''}
+        onClick={() => setAskingConfirmation(true)}
+      />
     </>
     )
 }

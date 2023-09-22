@@ -87,10 +87,10 @@ export const Import = () => {
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex flex-col gap-8 items-start">
         <Button
-          className="w-max"
-          icon={faArrowLeft}
-          text="Actions"
           type="ghost"
+          text="Actions"
+          icon={faArrowLeft}
+          className="w-max"
           onClick={() => navigate(RoutePaths.OPTIONS)}
         />
 
@@ -155,9 +155,9 @@ export const Import = () => {
                   <div className="flex w-full flex-col gap-2">
                     {askConfirmImport ? (
                       <Button
+                        text="Confirm"
                         ref={wrapperRef}
                         icon={faExclamationCircle}
-                        text="Confirm"
                         onClick={importData}
                       />
                     ) : (

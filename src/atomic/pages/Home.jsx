@@ -22,7 +22,13 @@ export const Home = () => {
   return (
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex flex-col items-start justify-between gap-8" ref={headerRef}>
-        <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
+        <Button
+          type="ghost"
+          text="Options"
+          icon={faBars}
+          className="w-max"
+          onClick={() => navigate(RoutePaths.OPTIONS)}
+        />
 
         <div className="flex items-center gap-2">
           <Logo className="h-auto w-8"/>
@@ -42,7 +48,13 @@ export const Home = () => {
               </span>
             </div>
 
-            <Button className="w-max" icon={faBars} text="Options" type="ghost" onClick={() => navigate(RoutePaths.OPTIONS)}/>
+            <Button
+              type="ghost"
+              text="Options"
+              icon={faBars}
+              className="w-max"
+              onClick={() => navigate(RoutePaths.OPTIONS)}
+            />
           </div>
         </div>
       )}

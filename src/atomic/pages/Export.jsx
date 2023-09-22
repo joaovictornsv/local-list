@@ -88,10 +88,10 @@ export const Export = () => {
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex flex-col gap-8 items-start">
         <Button
-          className="w-max"
-          icon={faArrowLeft}
-          text={sectionId ? 'Section' : 'Share'}
           type="ghost"
+          text={sectionId ? 'Section' : 'Share'}
+          icon={faArrowLeft}
+          className="w-max"
           onClick={() => navigate(
             sectionId
               ? RoutePaths.SECTION.replace(':sectionId', section.id)
@@ -135,23 +135,23 @@ export const Export = () => {
 
                   <div className="flex items-center gap-2">
                     <Button
-                      icon={copied ? faCheck : faCopy}
                       text={copied ? "Copied!" : "Copy"}
+                      icon={copied ? faCheck : faCopy}
                       onClick={copyLinkToClipboard}
                     />
                     {sectionId && !duplicated && !confirmDuplicating&& (
                       <Button
-                        text="Duplicate"
                         type="secondary"
+                        text="Duplicate"
                         onClick={() => setConfirmDuplicating(true)}
                       />
                     )}
 
                     {sectionId && !duplicated && confirmDuplicating && (
                       <Button
-                        icon={faExclamationCircle}
-                        text="Confirm"
                         type="secondary"
+                        text="Confirm"
+                        icon={faExclamationCircle}
                         onClick={duplicate}
                       />
                     )}
@@ -169,7 +169,6 @@ export const Export = () => {
                         </p>
                       </div>
                     )}
-
                   </div>
                 </div>
               </div>

@@ -30,10 +30,10 @@ export const Options = () => {
       <div className="flex flex-col gap-12 items-start">
         <div className="flex flex-col items-start justify-between gap-8">
           <Button
-            className="w-max"
-            icon={faArrowLeft}
-            text="Home"
             type="ghost"
+            text="Home"
+            icon={faArrowLeft}
+            className="w-max"
             onClick={() => navigate( RoutePaths.HOME)}
           />
 
@@ -95,15 +95,15 @@ export const Options = () => {
 
             <div className="flex gap-2">
               <Button
+                text="Export data"
                 icon={faFileExport}
                 onClick={() => navigate(RoutePaths.EXPORT)}
-                text="Export data"
               />
               <Button
                 type="secondary"
-                onClick={() => navigate(RoutePaths.IMPORT)}
-                icon={faFileImport}
                 text="Import data"
+                icon={faFileImport}
+                onClick={() => navigate(RoutePaths.IMPORT)}
               />
             </div>
           </div>
@@ -123,16 +123,16 @@ export const Options = () => {
             <div className="flex gap-2">
               <Button
                 type="danger"
-                icon={faYoutube}
-                to="https://youtu.be/E84Y0TnaPQM"
                 text="Presentation"
+                to="https://youtu.be/E84Y0TnaPQM"
+                icon={faYoutube}
               />
               <Button
+                type="secondary"
+                text="Repository"
+                to="https://github.com/joaovictornsv/local-list"
                 icon={faGithub}
                 onClick={openRepository}
-                to="https://github.com/joaovictornsv/local-list"
-                text="Repository"
-                type="secondary"
               />
             </div>
           </div>

@@ -86,19 +86,19 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
         />
         <div className="flex items-center self-end gap-2">
           <Button
-            isSubmit={isSectionScope || settings.defaultItemToAdd !== SECTION_VALUE}
-            onClick={onAddTask}
-            icon={faPlus}
             text="Add task"
+            icon={faPlus}
             className="w-max"
+            onClick={onAddTask}
+            isSubmit={isSectionScope || settings.defaultItemToAdd !== SECTION_VALUE}
           />
           {!isSectionScope && (
             <Button
-              isSubmit={settings.defaultItemToAdd === SECTION_VALUE}
-              onClick={onAddSection}
-              icon={faPlus}
               text="Add section"
+              icon={faPlus}
               className="w-max"
+              onClick={onAddSection}
+              isSubmit={settings.defaultItemToAdd === SECTION_VALUE}
             />
           )}
         </div>

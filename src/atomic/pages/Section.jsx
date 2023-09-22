@@ -40,8 +40,20 @@ export const Section = () => {
   return (
     <div className="w-full flex flex-col justify-start gap-8">
       <div className="flex items-center gap-2 justify-between" ref={headerRef}>
-        <Button className="w-max" icon={faArrowLeft} text="Home" type="ghost" onClick={() => navigate(RoutePaths.HOME)} />
-        <Button className="w-max" icon={faFileExport} text="Export" type="ghost" onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}/>
+        <Button
+          type="ghost"
+          text="Home"
+          icon={faArrowLeft}
+          className="w-max"
+          onClick={() => navigate(RoutePaths.HOME)}
+        />
+        <Button
+          type="ghost"
+          text="Export"
+          icon={faFileExport}
+          className="w-max"
+          onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}
+        />
       </div>
 
       {!isHeaderInViewPort && (
@@ -50,11 +62,16 @@ export const Section = () => {
             <span className="text-sm font-bold">
               {section.title}
             </span>
-            <Button className="w-max" icon={faHouse} text="Home" type="ghost" onClick={() => navigate(RoutePaths.HOME)} />
+            <Button
+              type="ghost"
+              text="Home"
+              icon={faHouse}
+              className="w-max"
+              onClick={() => navigate(RoutePaths.HOME)}
+            />
           </div>
         </div>
       )}
-
 
       {section ? (
         <div className="flex flex-col gap-8">
