@@ -80,7 +80,7 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
           value={inputValue}
           onChange={onChange}
           errorMessage={showInputError && 'Please fill the field with valid input'}
-          label={isSectionScope ? 'Add new subtask' : 'What you need to do?'}
+          label={isSectionScope ? 'Add new subtask' : 'What do you need to do?'}
           placeholder={randomPlaceholder}
           ref={inputRef}
         />

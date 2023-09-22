@@ -5,7 +5,14 @@ const placeholders = [
   'Buy fruits',
   'Pay monthly bills',
   'Study for test',
-  'Take car to mechanic'
+  'Take the car to a mechanic',
+  'Print the papers',
+  'Read an article',
+  'Talk with John',
+  'Send an email to the teacher',
+  'Paint the wall',
+  'Start the course',
+  'Clean my bedroom'
 ]
 
 export const generateRandomPlaceholder = () => {
