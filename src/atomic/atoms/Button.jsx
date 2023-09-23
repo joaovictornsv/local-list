@@ -1,6 +1,8 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import {Link} from "react-router-dom";
+import {twMerge} from "tailwind-merge";
+import classNames from "classnames";
 
 const BUTTON_SIZES = {
   sm: 'py-1 px-2',
@@ -54,7 +56,14 @@ export const Button = React.forwardRef(({
 
   return (
     <Wrapper
-      className={`text-sm w-full font-normal rounded-md py-1 px-2 inline-flex items-center justify-center gap-2 ${opacityClassName} ${typeClassName} ${sizeClassName} ${className}`}
+      className={twMerge(classNames(
+        'inline-flex items-center justify-center',
+        'w-full rounded-md py-1 px-2',
+        'text-sm font-normal gap-2',
+        opacityClassName,
+        typeClassName,
+        sizeClassName
+      ), className)}
       ref={ref}
       type={isSubmit ? 'submit' : 'button'}
       {...rest}

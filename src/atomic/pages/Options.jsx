@@ -42,7 +42,6 @@ export const Options = () => {
           </h1>
         </div>
 
-
         <div className="flex flex-col gap-12 w-full">
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-1">
@@ -56,28 +55,27 @@ export const Options = () => {
             </div>
 
             <div className="flex gap-2 items-center justify-evenly">
-                <div>
-                  <Input
-                    type="radio"
-                    label="Task"
-                    name={DEFAULT_ITEM_NAME}
-                    value={TASK_VALUE}
-                    onChange={onChangeRadio}
-                    checked={settings.defaultItemToAdd === TASK_VALUE}
-                  />
-                </div>
-                <div>
-                  <Input
-                    type="radio"
-                    label="Section"
-                    className="focus:ring-0"
-                    name={DEFAULT_ITEM_NAME}
-                    value={SECTION_VALUE}
-                    onChange={onChangeRadio}
-                    checked={settings.defaultItemToAdd === SECTION_VALUE}
-                  />
-                </div>
-
+              <div>
+                <Input
+                  type="radio"
+                  label="Task"
+                  name={DEFAULT_ITEM_NAME}
+                  value={TASK_VALUE}
+                  onChange={onChangeRadio}
+                  checked={settings.defaultItemToAdd === TASK_VALUE}
+                />
+              </div>
+              <div>
+                <Input
+                  type="radio"
+                  label="Section"
+                  className="focus:ring-0"
+                  name={DEFAULT_ITEM_NAME}
+                  value={SECTION_VALUE}
+                  onChange={onChangeRadio}
+                  checked={settings.defaultItemToAdd === SECTION_VALUE}
+                />
+              </div>
             </div>
           </div>
 

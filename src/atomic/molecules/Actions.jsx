@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlash} from "@fortawesome/free-solid-svg-icons/faSlash";
 import {handleClickOutside} from "../../utils/handleClickOutside.js";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import classNames from "classnames";
 
 export const Actions = ({
   onEdit,
@@ -50,14 +51,25 @@ export const Actions = ({
         onClick={onClickToShowOptions}
       />
 
-      <div className={`${showOptions ? '': 'hidden'} flex items-center gap-1 z-50 mt-1 absolute bg-zinc-800 right-0 rounded p-1`}>
+      <div
+        className={classNames(
+          'flex items-center gap-1 z-50 mt-1 absolute bg-zinc-800 right-0 rounded p-1', {
+          hidden: !showOptions
+        })}
+      >
         <div className="relative">
           <Button
             type="ghost"
             icon={faThumbtack}
             onClick={onClickToPin}
           />
-          {alreadyPinned && <FontAwesomeIcon className="absolute pointer-events-none -rotate-90 h-3 top-2 right-1/2 transform translate-x-1/2" icon={faSlash} onClick={onClickToPin}/> }
+          {alreadyPinned && (
+            <FontAwesomeIcon
+              icon={faSlash}
+              className="absolute pointer-events-none -rotate-90 h-3 top-2 right-1/2 transform translate-x-1/2"
+              onClick={onClickToPin}
+            />
+          )}
         </div>
         <Button
           type="ghost"
@@ -76,7 +88,7 @@ export const Actions = ({
           <Button
             type="ghost"
             icon={faTrash}
-            className={askingConfirmation ? 'hidden': ''}
+            className={classNames({ hidden: askingConfirmation })}
             onClick={() => setAskingConfirmation(true)}
           />
         )}

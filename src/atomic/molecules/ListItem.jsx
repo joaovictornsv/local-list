@@ -117,7 +117,10 @@ export const ListItem = ({
                 rel="noreferrer"
                 className="text-inherit font-normal cursor-pointer hover:text-zinc-50"
               >
-                <FontAwesomeIcon className="py-1 h-3" icon={faArrowUpRightFromSquare} />
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="py-1 h-3"
+                />
               </a>
 
               <span className="text-sm gap-2 break-words line-clamp-3 cursor-pointer hover:text-zinc-50" onClick={navigateToSectionPage}>
@@ -139,7 +142,12 @@ export const ListItem = ({
       )}
 
       <div className="flex items-center gap-2">
-        {item.pinned && !editMode && <FontAwesomeIcon icon={faThumbtack} className="text-sm rotate-45 text-zinc-400"/>}
+        {item.pinned && !editMode && (
+          <FontAwesomeIcon
+            icon={faThumbtack}
+            className="text-sm rotate-45 text-zinc-400"
+          />
+        )}
 
         {editMode ? (
           <div className="flex flex-items gap-1">

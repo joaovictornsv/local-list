@@ -1,4 +1,6 @@
 import React from "react";
+import {twMerge} from "tailwind-merge";
+import classNames from "classnames";
 
 // eslint-disable-next-line react/display-name
 export const Textarea = React.forwardRef(({
@@ -11,7 +13,12 @@ export const Textarea = React.forwardRef(({
     <label className="text-sm flex flex-col gap-2 w-full">
       {label && <span>{label}</span>}
       <textarea
-        className={`px-2 bg-zinc-900 text-sm py-1 rounded focus:outline-none focus:ring-1 ${errorMessage ? 'focus:ring-red-500' : 'focus:ring-zinc-400'} ${className}`}
+        className={twMerge(classNames(
+          'text-sm bg-zinc-900 px-2 py-1 rounded',
+          'focus:outline-none focus:ring-1', {
+          'focus:ring-red-500': errorMessage,
+          'focus:ring-zinc-400': !errorMessage
+        }), className)}
         autoFocus
         ref={ref}
         {...rest}

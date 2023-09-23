@@ -18,7 +18,8 @@ export const NotFound = () => {
         </div>
 
         <Button
-          icon={faArrowLeft} text="Return to home"
+          text="Return to home"
+          icon={faArrowLeft}
           onClick={() => navigate(RoutePaths.HOME)}
         />
       </div>

@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 export const Checkbox = ({
   label,
   id,
@@ -14,7 +16,12 @@ export const Checkbox = ({
         {...rest}
       />
 
-      <span className={`line-clamp-3 break-words ${checked?'line-through':''}`}>
+      <span
+        className={classNames(
+          'line-clamp-3 break-words', {
+          'line-through': checked
+        })}
+      >
         {label}
       </span>
     </label>

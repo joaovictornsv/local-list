@@ -1,3 +1,5 @@
+import {twMerge} from "tailwind-merge";
+
 export const Select = ({
   children,
   className,
@@ -6,7 +8,11 @@ export const Select = ({
 
   return (
     <select
-      className={`rounded px-2 text-sm py-1 focus:outline-none focus:ring-1 focus:ring-zinc-400 bg-neutral-700 ${className}`}
+      className={twMerge(
+        'text-sm bg-neutral-700 px-2 py-1 rounded',
+        'focus:outline-none focus:ring-1 focus:ring-zinc-400',
+        className
+      )}
       {...rest}
     >
       {children}
