@@ -12,6 +12,10 @@ export const SectionList = ({sections}) => {
     )
   }
 
+  if (!sections.length) {
+    return null
+  }
+
   return (
     <div className="flex flex-col gap-2">
       {sections.sort(sortByPin).map((section) =>
