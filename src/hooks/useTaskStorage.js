@@ -105,8 +105,8 @@ export const useTaskStorage = () => {
         ...task,
         ...(task.id === taskId && {
           title,
-          pinned: !!pinned,
-          sectionId
+          ...(pinned !== undefined && { pinned: !!pinned}),
+          ...(sectionId !== undefined && { sectionId }),
         })
       }))
     )
