@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {TaskList} from "../organisms/TaskList.jsx";
 import {useSection} from "../../contexts/useSection.js";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AddForm} from "../molecules/AddForm.jsx";
 import {Button} from "../atoms/Button.jsx";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
@@ -10,16 +10,33 @@ import {RoutePaths} from "../../router/RoutePaths.js";
 import {faFileExport} from "@fortawesome/free-solid-svg-icons/faFileExport";
 import {useVisibility} from "../../hooks/useVisibility.js";
 import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
+import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
+import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
+import {faClose} from "@fortawesome/free-solid-svg-icons/faClose";
+import {Input} from "../atoms/Input.jsx";
+import classNames from "classnames";
+
+const FormWrapper = ({children, editMode, ...rest}) => (
+  editMode
+    ? <form {...rest}>{children}</form>
+    : <div {...rest}>{children}</div>
+)
 
 export const Section = () => {
   const navigate = useNavigate()
   const { sectionId } = useParams()
-  const { getSection } = useSection()
+  const { getSection, editSection } = useSection()
   const {getTasksBySectionId} = useTask()
 
   const [section, setSection] = useState()
   const [tasks, setTasks] = useState()
   const [isLoading, setIsLoading] = useState(true)
+
+  const [titleEditMode, setTitleEditMode] = useState(false)
+  const [sectionTitleEdit, setSectionTitleEdit] = useState('')
+  const [showInputError, setShowInputError] = useState(false)
+  const inputRef = useRef(null)
+
 
   const [isHeaderInViewPort, headerRef] = useVisibility(54);
 
@@ -35,6 +52,43 @@ export const Section = () => {
         <span className="text-sm">Loading...</span>
       </div>
     )
+  }
+
+  const onEditSectionTitle = () => {
+    setTitleEditMode(true)
+    setSectionTitleEdit(section.title)
+  }
+
+  const validateInput = () => {
+    if (!sectionTitleEdit.trim()) {
+      setShowInputError(true)
+      inputRef.current.focus()
+      return false
+    }
+    return true
+  }
+
+  const saveChanges = (e) => {
+    e.preventDefault()
+    if (!validateInput()) {
+      return
+    }
+
+    editSection(section.id, {
+      title: sectionTitleEdit
+    })
+    setTitleEditMode(false)
+    setShowInputError(false)
+  }
+
+  const onCancel = () => {
+    setTitleEditMode(false)
+    setShowInputError(false)
+  }
+
+  const onChange = (e) => {
+    setShowInputError(false)
+    setSectionTitleEdit(e.target.value)
   }
 
   return (
@@ -75,9 +129,52 @@ export const Section = () => {
 
       {section ? (
         <div className="flex flex-col gap-8">
-          <h1 className="text-3xl line-clamp-3 break-all font-bold">
-            {section.title}
-          </h1>
+          <FormWrapper
+            editMode={titleEditMode}
+            onSubmit={saveChanges}
+            className={classNames("flex gap-2", {
+              "items-start": titleEditMode,
+              "items-center": !titleEditMode
+            })}
+          >
+            {titleEditMode ? (
+              <>
+                <Input
+                  value={sectionTitleEdit}
+                  onChange={onChange}
+                  errorMessage={showInputError && 'Please fill the field with valid input'}
+                  ref={inputRef}
+                />
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="ghost"
+                    icon={faSave}
+                    className="w-max"
+                    onClick={saveChanges}
+                    isSubmit
+                  />
+                  <Button
+                    type="ghost"
+                    icon={faClose}
+                    className="w-max"
+                    onClick={onCancel}
+                  />
+                </div>
+              </>
+            ): (
+              <>
+                <h1 className="text-3xl line-clamp-3 break-all font-bold">
+                  {section.title}
+                </h1>
+                <Button
+                  className="w-max"
+                  type="ghost"
+                  icon={faPencil}
+                  onClick={onEditSectionTitle}
+                />
+              </>
+            )}
+          </FormWrapper>
 
           <AddForm isSectionScope sectionId={sectionId} />
 

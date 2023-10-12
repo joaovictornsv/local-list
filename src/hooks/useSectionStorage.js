@@ -92,7 +92,7 @@ export const useSectionStorage = () => {
           ...section,
           ...(section.id === sectionId && {
             title,
-            pinned: !!pinned
+            ...(pinned !== undefined && { pinned: !!pinned })
           })
         })
       )
