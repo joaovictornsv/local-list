@@ -15,6 +15,9 @@ import {faSave} from "@fortawesome/free-solid-svg-icons/faSave";
 import {faClose} from "@fortawesome/free-solid-svg-icons/faClose";
 import {Input} from "../atoms/Input.jsx";
 import classNames from "classnames";
+import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import {handleClickOutside} from "../../utils/handleClickOutside.js";
 
 const FormWrapper = ({children, editMode, ...rest}) => (
   editMode
@@ -25,7 +28,7 @@ const FormWrapper = ({children, editMode, ...rest}) => (
 export const Section = () => {
   const navigate = useNavigate()
   const { sectionId } = useParams()
-  const { getSection, editSection } = useSection()
+  const { getSection, editSection, removeSection } = useSection()
   const {getTasksBySectionId} = useTask()
 
   const [section, setSection] = useState()
@@ -36,7 +39,9 @@ export const Section = () => {
   const [sectionTitleEdit, setSectionTitleEdit] = useState('')
   const [showInputError, setShowInputError] = useState(false)
   const inputRef = useRef(null)
+  const deleteButtonRef = useRef(null);
 
+  const [askingConfirmation, setAskingConfirmation] = useState(false)
 
   const [isHeaderInViewPort, headerRef] = useVisibility(54);
 
@@ -45,6 +50,13 @@ export const Section = () => {
     setTasks(getTasksBySectionId(sectionId))
     setIsLoading(false)
   }, [getTasksBySectionId, getSection, sectionId]);
+
+  useEffect(() => {
+    handleClickOutside({
+      wrapperRef: deleteButtonRef,
+      onClickOutside: () => setAskingConfirmation(false)
+    })
+  }, [deleteButtonRef]);
 
   if (isLoading) {
     return (
@@ -66,6 +78,11 @@ export const Section = () => {
       return false
     }
     return true
+  }
+
+  const onDeleteSection = () => {
+    removeSection(sectionId)
+    navigate(RoutePaths.HOME)
   }
 
   const saveChanges = (e) => {
@@ -101,13 +118,34 @@ export const Section = () => {
           className="w-max"
           onClick={() => navigate(RoutePaths.HOME)}
         />
-        <Button
-          type="ghost"
-          text="Export"
-          icon={faFileExport}
-          className="w-max"
-          onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}
-        />
+        <div className="flex items-center gap-2">
+          {askingConfirmation ? (
+            <div ref={deleteButtonRef}>
+              <Button
+                type="danger"
+                text="Confirm"
+                size="sm"
+                icon={faExclamationCircle}
+                onClick={onDeleteSection}
+              />
+            </div>
+          ) : (
+            <Button
+              type="ghost"
+              text="Delete"
+              icon={faTrash}
+              className={classNames({ hidden: askingConfirmation })}
+              onClick={() => setAskingConfirmation(true)}
+            />
+          )}
+          <Button
+            type="ghost"
+            text="Export"
+            icon={faFileExport}
+            onClick={() => navigate(`${RoutePaths.EXPORT}?sectionId=${section.id}`)}
+          />
+        </div>
+
       </div>
 
       {!isHeaderInViewPort && (
