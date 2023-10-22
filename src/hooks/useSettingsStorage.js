@@ -1,13 +1,13 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 
-export const TASK_VALUE = 'task'
-export const SECTION_VALUE = 'section'
+export const TASK_VALUE = 'task';
+export const SECTION_VALUE = 'section';
 
 export const SortOptions = {
   NONE: {
     value: 'NONE',
     label: 'No sort',
-    noSort: true
+    noSort: true,
   },
   DONE_ASC: {
     value: 'DONE_ASC',
@@ -16,63 +16,62 @@ export const SortOptions = {
   DONE_DESC: {
     value: 'DONE_DESC',
     label: 'By done (desc)',
-    isDesc: true
-  }
-}
-
+    isDesc: true,
+  },
+};
 
 const defaultSettings = {
   defaultItemToAdd: TASK_VALUE,
-  sortType: SortOptions.NONE.value
-}
+  sortType: SortOptions.NONE.value,
+};
 
-const SETTINGS_STORAGE_KEY = 'll_settings'
+const SETTINGS_STORAGE_KEY = 'll_settings';
 export const useSettingsStorage = () => {
-  const [settings, setSettings] = useState({})
+  const [settings, setSettings] = useState({});
 
   useEffect(() => {
-    setSettings(getSettings())
+    setSettings(getSettings());
   }, []);
 
   const injectDefaultValues = (settings) => ({
     ...defaultSettings,
     ...settings,
-  })
+  });
 
   const getSettings = () => {
-    const raw = localStorage.getItem(SETTINGS_STORAGE_KEY)
+    const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
 
-    const parsedSettings =  JSON.parse(raw || '{}')
-    const finalSettings = injectDefaultValues(parsedSettings)
+    const parsedSettings = JSON.parse(raw || '{}');
+    const finalSettings = injectDefaultValues(parsedSettings);
     if (!raw) {
-      saveSettings(finalSettings)
+      saveSettings(finalSettings);
     }
-    return finalSettings
-  }
+    return finalSettings;
+  };
 
   const saveSettings = (settingsToSave) => {
-    const raw = JSON.stringify(settingsToSave)
-    localStorage.setItem(SETTINGS_STORAGE_KEY, raw)
-    setSettings(settingsToSave)
-  }
+    const raw = JSON.stringify(settingsToSave);
+    localStorage.setItem(SETTINGS_STORAGE_KEY, raw);
+    setSettings(settingsToSave);
+  };
 
   const changeDefaultItemToAdd = (defaultItemToAdd) => {
     saveSettings({
       ...settings,
-      defaultItemToAdd
-    })
-  }
+      defaultItemToAdd,
+    });
+  };
 
   const changeSortType = (sortType) => {
     saveSettings({
       ...settings,
       sortType,
-    })
-  }
+    });
+  };
 
   return {
     settings,
     changeDefaultItemToAdd,
-    changeSortType
-  }
-}
+    changeSortType,
+  };
+};

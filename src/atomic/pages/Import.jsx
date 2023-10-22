@@ -1,91 +1,92 @@
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSection } from "../../contexts/useSection.js";
-import { useTask } from "../../contexts/useTask.js";
-import { RoutePaths } from "../../router/RoutePaths.js";
-import { handleClickOutside } from "../../utils/handleClickOutside.js";
-import { isValidJsonString } from "../../utils/isValidJsonString.js";
-import { Button } from "../atoms/Button.jsx";
-import { Textarea } from "../atoms/Textarea.jsx";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSection } from '../../contexts/useSection.js';
+import { useTask } from '../../contexts/useTask.js';
+import { RoutePaths } from '../../router/RoutePaths.js';
+import { handleClickOutside } from '../../utils/handleClickOutside.js';
+import { isValidJsonString } from '../../utils/isValidJsonString.js';
+import { Button } from '../atoms/Button.jsx';
+import { Textarea } from '../atoms/Textarea.jsx';
 
 const isValidJsonData = (data) => {
   if (!Array.isArray(data.sections) || !Array.isArray(data.tasks)) {
-    return false
+    return false;
   }
 
-  const validTasks = data.tasks.length ? data.tasks.every((task) => {
-    return (
-      task.title !== undefined &&
-      task.done !== undefined
-    )
-  }) : true
-  const validSections =  data.sections.length ? data.sections.every((task) => {
-    return (
-      task.id !== undefined &&
-      task.title !== undefined
-    )
-  }) : true
+  const validTasks = data.tasks.length
+    ? data.tasks.every((task) => {
+        return task.title !== undefined && task.done !== undefined;
+      })
+    : true;
+  const validSections = data.sections.length
+    ? data.sections.every((task) => {
+        return task.id !== undefined && task.title !== undefined;
+      })
+    : true;
 
   return !(!validTasks || !validSections);
-}
+};
 
 export const Import = () => {
-  const navigate = useNavigate()
-  const [dataToImport, setDataToImport] = useState('')
-  const [tasksToImport, setTasksToImport] = useState([])
-  const [sectionsToImport, setSectionsToImport] = useState([])
-  const [conflictedSections, setConflictedSections] = useState([])
+  const navigate = useNavigate();
+  const [dataToImport, setDataToImport] = useState('');
+  const [tasksToImport, setTasksToImport] = useState([]);
+  const [sectionsToImport, setSectionsToImport] = useState([]);
+  const [conflictedSections, setConflictedSections] = useState([]);
 
-  const { importTasks } = useTask()
-  const { importSections, checkImportConflicts } = useSection()
+  const { importTasks } = useTask();
+  const { importSections, checkImportConflicts } = useSection();
 
-  const [dataLoaded, setDataLoaded] = useState(false)
-  const [invalidJsonData, setInvalidJsonData] = useState(false)
-  const [askConfirmImport, setAskConfirmImport] = useState(false)
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [invalidJsonData, setInvalidJsonData] = useState(false);
+  const [askConfirmImport, setAskConfirmImport] = useState(false);
   const wrapperRef = useRef(null);
 
   const onClickOutsideCancelButton = () => {
-    setAskConfirmImport(false)
-  }
+    setAskConfirmImport(false);
+  };
 
   useEffect(() => {
-    handleClickOutside({wrapperRef, onClickOutside: onClickOutsideCancelButton })
+    handleClickOutside({
+      wrapperRef,
+      onClickOutside: onClickOutsideCancelButton,
+    });
   }, [wrapperRef]);
 
   const validateAndParseData = (e) => {
-    const data = e.target.value
-    setDataToImport(data)
+    const data = e.target.value;
+    setDataToImport(data);
 
     if (!isValidJsonString(data)) {
-      setInvalidJsonData(true)
-      return
+      setInvalidJsonData(true);
+      return;
     }
 
-    const parsedData = JSON.parse(data)
+    const parsedData = JSON.parse(data);
     if (!isValidJsonData(parsedData)) {
-      setInvalidJsonData(true)
-      return
+      setInvalidJsonData(true);
+      return;
     }
 
-    setInvalidJsonData(false)
-    setTasksToImport(parsedData.tasks)
-    setSectionsToImport(parsedData.sections)
-    setConflictedSections(checkImportConflicts(parsedData.sections))
-  }
+    setInvalidJsonData(false);
+    setTasksToImport(parsedData.tasks);
+    setSectionsToImport(parsedData.sections);
+    setConflictedSections(checkImportConflicts(parsedData.sections));
+  };
 
   const importData = () => {
-    importTasks(tasksToImport)
-    importSections(sectionsToImport)
-    setDataLoaded(true)
-  }
+    importTasks(tasksToImport);
+    importSections(sectionsToImport);
+    setDataLoaded(true);
+  };
 
   return (
-    <div className="w-full flex flex-col justify-start gap-8">
-      <div className="flex flex-col gap-8 items-start">
+    <div className="flex w-full flex-col justify-start gap-8">
+      <div className="flex flex-col items-start gap-8">
         <Button
           type="ghost"
           text="Actions"
@@ -94,11 +95,9 @@ export const Import = () => {
           onClick={() => navigate(RoutePaths.OPTIONS)}
         />
 
-        <div className="flex flex-col gap-8 w-full">
+        <div className="flex w-full flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold">
-              Import data
-            </h1>
+            <h1 className="text-3xl font-bold">Import data</h1>
             <p className="text-sm text-zinc-400">
               Paste the JSON data below to import external data
             </p>
@@ -113,9 +112,7 @@ export const Import = () => {
           />
 
           {dataToImport && invalidJsonData && (
-            <span className="text-sm">
-              Invalid JSON provided.
-            </span>
+            <span className="text-sm">Invalid JSON provided.</span>
           )}
 
           {dataToImport && !invalidJsonData && (
@@ -123,35 +120,46 @@ export const Import = () => {
               <p>
                 <span className="text-sm text-zinc-400">
                   Data to be imported:
-                </span><br/>
+                </span>
+                <br />
                 <span>
-                  {tasksToImport.length} task{tasksToImport.length > 1 ? 's' : ''} and {sectionsToImport.length} section{sectionsToImport.length > 1 ? 's' : ''}
+                  {tasksToImport.length} task
+                  {tasksToImport.length > 1 ? 's' : ''} and{' '}
+                  {sectionsToImport.length} section
+                  {sectionsToImport.length > 1 ? 's' : ''}
                 </span>
               </p>
 
               {!!conflictedSections.length && (
-                <div className="bg-zinc-800 p-4 rounded border border-zinc-600">
+                <div className="rounded border border-zinc-600 bg-zinc-800 p-4">
                   <div className="flex items-start gap-2">
-                    <FontAwesomeIcon icon={faExclamationCircle} className="h-3 mt-1.5" />
+                    <FontAwesomeIcon
+                      icon={faExclamationCircle}
+                      className="mt-1.5 h-3"
+                    />
                     <p>
                       <span className="text-sm text-zinc-400">
-                        Conflicts found. The following sections already exist in your data. Continue with the import to replace them.
-                      </span><br/>
+                        Conflicts found. The following sections already exist in
+                        your data. Continue with the import to replace them.
+                      </span>
+                      <br />
                       <span className="text-sm">
-                        {conflictedSections.map((section) => section.title).join(', ')}
+                        {conflictedSections
+                          .map((section) => section.title)
+                          .join(', ')}
                       </span>
                     </p>
                   </div>
                 </div>
               )}
 
-              <div className="w-full flex flex-col items-center gap-2">
+              <div className="flex w-full flex-col items-center gap-2">
                 {dataLoaded ? (
-                  <span className="text-sm py-4 flex justify-center items-center gap-2">
-                    <FontAwesomeIcon icon={faCheck}/>
+                  <span className="flex items-center justify-center gap-2 py-4 text-sm">
+                    <FontAwesomeIcon icon={faCheck} />
                     Import completed!
                   </span>
-                ): (
+                ) : (
                   <div className="flex w-full flex-col gap-2">
                     {askConfirmImport ? (
                       <Button
@@ -175,5 +183,5 @@ export const Import = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

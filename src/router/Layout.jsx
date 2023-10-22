@@ -1,7 +1,7 @@
-export const Layout = ({children}) => {
+export const Layout = ({ children }) => {
   return (
-    <div className="flex h-full px-6 w-full max-w-[550px] mx-auto mt-16 pb-16">
+    <div className="mx-auto mt-16 flex h-full w-full max-w-[550px] px-6 pb-16">
       {children}
     </div>
-  )
-}
+  );
+};

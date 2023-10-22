@@ -1,77 +1,76 @@
-import {Input} from "../atoms/Input.jsx";
-import {Button} from "../atoms/Button.jsx";
-import {useEffect, useRef, useState} from "react";
-import {useTask} from "../../contexts/useTask.js";
-import {useSection} from "../../contexts/useSection.js";
-import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
-import {generateRandomPlaceholder} from "../../utils/generateRandomPlaceholder.js";
-import {useSettings} from "../../contexts/useSettings.js";
-import {SECTION_VALUE } from "../../hooks/useSettingsStorage.js";
-
+import { Input } from '../atoms/Input.jsx';
+import { Button } from '../atoms/Button.jsx';
+import { useEffect, useRef, useState } from 'react';
+import { useTask } from '../../contexts/useTask.js';
+import { useSection } from '../../contexts/useSection.js';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { generateRandomPlaceholder } from '../../utils/generateRandomPlaceholder.js';
+import { useSettings } from '../../contexts/useSettings.js';
+import { SECTION_VALUE } from '../../hooks/useSettingsStorage.js';
 
 export const AddForm = ({ isSectionScope, sectionId }) => {
-  const [inputValue, setInputValue] = useState('')
-  const [showInputError, setShowInputError] = useState(false)
-  const [randomPlaceholder, setRandomPlaceholder] = useState('')
+  const [inputValue, setInputValue] = useState('');
+  const [showInputError, setShowInputError] = useState(false);
+  const [randomPlaceholder, setRandomPlaceholder] = useState('');
 
-  const { settings } = useSettings()
+  const { settings } = useSettings();
 
   useEffect(() => {
-    setRandomPlaceholder(generateRandomPlaceholder())
+    setRandomPlaceholder(generateRandomPlaceholder());
   }, []);
 
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
-  const { newTask } = useTask()
-  const { newSection } = useSection()
+  const { newTask } = useTask();
+  const { newSection } = useSection();
 
   const validateInput = () => {
     if (!inputValue.trim()) {
-      setShowInputError(true)
-      inputRef.current.focus()
-      return false
+      setShowInputError(true);
+      inputRef.current.focus();
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const onAddTask = (e) => {
     if (e) {
-      e.preventDefault()
+      e.preventDefault();
     }
 
     if (!validateInput()) {
-      return
+      return;
     }
 
-    setInputValue('')
+    setInputValue('');
     newTask({
       title: inputValue,
-      sectionId
-    })
-  }
+      sectionId,
+    });
+  };
   const onAddSection = (e) => {
     if (e) {
-      e.preventDefault()
+      e.preventDefault();
     }
     if (!validateInput()) {
-      return
+      return;
     }
-    setInputValue('')
+    setInputValue('');
     newSection({
-      title: inputValue
-    })
-  }
+      title: inputValue,
+    });
+  };
 
   const onChange = (e) => {
-    setShowInputError(false)
-    setInputValue(e.target.value)
-  }
+    setShowInputError(false);
+    setInputValue(e.target.value);
+  };
 
   const onSubmit = isSectionScope
     ? onAddTask
     : settings.defaultItemToAdd === SECTION_VALUE
     ? onAddSection
-    : onAddTask
+    : onAddTask;
 
   return (
     <form onSubmit={onSubmit}>
@@ -79,18 +78,22 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
         <Input
           value={inputValue}
           onChange={onChange}
-          errorMessage={showInputError && 'Please fill the field with valid input'}
+          errorMessage={
+            showInputError && 'Please fill the field with valid input'
+          }
           label={isSectionScope ? 'Add new subtask' : 'What do you need to do?'}
           placeholder={randomPlaceholder}
           ref={inputRef}
         />
-        <div className="flex items-center self-end gap-2">
+        <div className="flex items-center gap-2 self-end">
           <Button
             text="Add task"
             icon={faPlus}
             className="w-max"
             onClick={onAddTask}
-            isSubmit={isSectionScope || settings.defaultItemToAdd !== SECTION_VALUE}
+            isSubmit={
+              isSectionScope || settings.defaultItemToAdd !== SECTION_VALUE
+            }
           />
           {!isSectionScope && (
             <Button
@@ -104,5 +107,5 @@ export const AddForm = ({ isSectionScope, sectionId }) => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};

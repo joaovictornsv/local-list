@@ -1,15 +1,14 @@
-import {createContext} from "react";
-import {useSettingsStorage} from "../hooks/useSettingsStorage.js";
+import { createContext } from 'react';
+import { useSettingsStorage } from '../hooks/useSettingsStorage.js';
 
-export const SettingsContext = createContext({})
+export const SettingsContext = createContext({});
 
 export const SettingsProvider = ({ children }) => {
-  const values = useSettingsStorage()
+  const values = useSettingsStorage();
 
   return (
-    <SettingsContext.Provider value={{...values}}>
+    <SettingsContext.Provider value={{ ...values }}>
       {children}
     </SettingsContext.Provider>
-  )
-}
-
+  );
+};

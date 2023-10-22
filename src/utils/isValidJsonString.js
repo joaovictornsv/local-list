@@ -5,4 +5,4 @@ export const isValidJsonString = (str) => {
     return false;
   }
   return true;
-}
+};

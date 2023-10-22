@@ -1,4 +1,4 @@
-import {twMerge} from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
 export const Select = ({
   children,
@@ -7,20 +7,21 @@ export const Select = ({
   className,
   ...rest
 }) => {
-
   return (
-    <label className={twMerge("flex gap-2 w-full text-sm flex-col", labelClassName)}>
+    <label
+      className={twMerge('flex w-full flex-col gap-2 text-sm', labelClassName)}
+    >
       {label && <span>{label}</span>}
       <select
         className={twMerge(
-          'text-sm bg-neutral-700 px-2 py-1 rounded',
+          'rounded bg-neutral-700 px-2 py-1 text-sm',
           'focus:outline-none focus:ring-1 focus:ring-zinc-400',
-          className
+          className,
         )}
         {...rest}
       >
         {children}
       </select>
     </label>
-  )
-}
+  );
+};

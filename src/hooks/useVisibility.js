@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export const useVisibility = (offset = 48) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -20,4 +20,4 @@ export const useVisibility = (offset = 48) => {
   });
 
   return [isVisible, currentElement];
-}
+};

@@ -1,60 +1,58 @@
-import {Button} from "../atoms/Button.jsx";
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import {useNavigate} from "react-router-dom";
-import {RoutePaths} from "../../router/RoutePaths.js";
-import {faFileExport} from "@fortawesome/free-solid-svg-icons/faFileExport";
-import {faFileImport} from "@fortawesome/free-solid-svg-icons/faFileImport";
-import {faGithub} from "@fortawesome/free-brands-svg-icons/faGithub";
-import {faYoutube} from "@fortawesome/free-brands-svg-icons/faYoutube";
-import {Input} from "../atoms/Input.jsx";
-import {SECTION_VALUE, TASK_VALUE} from "../../hooks/useSettingsStorage.js";
-import {useSettings} from "../../contexts/useSettings.js";
+import { Button } from '../atoms/Button.jsx';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import { useNavigate } from 'react-router-dom';
+import { RoutePaths } from '../../router/RoutePaths.js';
+import { faFileExport } from '@fortawesome/free-solid-svg-icons/faFileExport';
+import { faFileImport } from '@fortawesome/free-solid-svg-icons/faFileImport';
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
+import { Input } from '../atoms/Input.jsx';
+import { SECTION_VALUE, TASK_VALUE } from '../../hooks/useSettingsStorage.js';
+import { useSettings } from '../../contexts/useSettings.js';
 
-const DEFAULT_ITEM_NAME = 'defaultItem'
+const DEFAULT_ITEM_NAME = 'defaultItem';
 
 export const Options = () => {
-  const { settings, changeDefaultItemToAdd } = useSettings()
-  const navigate = useNavigate()
+  const { settings, changeDefaultItemToAdd } = useSettings();
+  const navigate = useNavigate();
 
   const openRepository = () => {
-    window.open("https://github.com/joaovictornsv/local-list")
-  }
+    window.open('https://github.com/joaovictornsv/local-list');
+  };
 
   const onChangeRadio = (e) => {
-    changeDefaultItemToAdd(e.target.value)
-  }
+    changeDefaultItemToAdd(e.target.value);
+  };
 
   return (
-    <div className="w-full flex flex-col justify-start gap-8">
-
-      <div className="flex flex-col gap-12 items-start">
+    <div className="flex w-full flex-col justify-start gap-8">
+      <div className="flex flex-col items-start gap-12">
         <div className="flex flex-col items-start justify-between gap-8">
           <Button
             type="ghost"
             text="Home"
             icon={faArrowLeft}
             className="w-max"
-            onClick={() => navigate( RoutePaths.HOME)}
+            onClick={() => navigate(RoutePaths.HOME)}
           />
 
-          <h1 className="text-3xl font-bold">
-            Options
-          </h1>
+          <h1 className="text-3xl font-bold">Options</h1>
         </div>
 
-        <div className="flex flex-col gap-12 w-full">
-          <div className="flex flex-col gap-4 w-full">
+        <div className="flex w-full flex-col gap-12">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <h2 className="text-xl text-zinc-200 font-semibold">
+              <h2 className="text-xl font-semibold text-zinc-200">
                 Default item to add
               </h2>
               <p className="text-sm text-zinc-400">
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
-                Choose your default item to add when you press "Enter" on the home page form
+                Choose your default item to add when you press "Enter" on the
+                home page form
               </p>
             </div>
 
-            <div className="flex gap-2 items-center justify-evenly">
+            <div className="flex items-center justify-evenly gap-2">
               <div>
                 <Input
                   type="radio"
@@ -79,16 +77,14 @@ export const Options = () => {
             </div>
           </div>
 
-          <div className="bg-zinc-700 h-px w-full" />
+          <div className="h-px w-full bg-zinc-700" />
 
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <h2 className="text-xl text-zinc-200 font-semibold">
+              <h2 className="text-xl font-semibold text-zinc-200">
                 Share data
               </h2>
-              <p className="text-sm text-zinc-400">
-                What do you want to do?
-              </p>
+              <p className="text-sm text-zinc-400">What do you want to do?</p>
             </div>
 
             <div className="flex gap-2">
@@ -106,13 +102,11 @@ export const Options = () => {
             </div>
           </div>
 
-          <div className="bg-zinc-700 h-px w-full" />
+          <div className="h-px w-full bg-zinc-700" />
 
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <h2 className="text-xl text-zinc-200 font-semibold">
-                About
-              </h2>
+              <h2 className="text-xl font-semibold text-zinc-200">About</h2>
               <p className="text-sm text-zinc-400">
                 More information about this project
               </p>
@@ -137,5 +131,5 @@ export const Options = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

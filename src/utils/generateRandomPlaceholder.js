@@ -12,10 +12,10 @@ const placeholders = [
   'Send an email to the teacher',
   'Paint the wall',
   'Start the course',
-  'Clean my bedroom'
-]
+  'Clean my bedroom',
+];
 
 export const generateRandomPlaceholder = () => {
-  const randomIndex = Math.floor(Math.random()*placeholders.length)
+  const randomIndex = Math.floor(Math.random() * placeholders.length);
   return placeholders[randomIndex];
-}
+};

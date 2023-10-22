@@ -1,15 +1,14 @@
-import {createContext} from "react";
-import {useTaskStorage} from "../hooks/useTaskStorage.js";
+import { createContext } from 'react';
+import { useTaskStorage } from '../hooks/useTaskStorage.js';
 
-export const TaskContext = createContext({})
+export const TaskContext = createContext({});
 
 export const TaskProvider = ({ children }) => {
-  const values = useTaskStorage()
+  const values = useTaskStorage();
 
   return (
-    <TaskContext.Provider value={{...values}}>
+    <TaskContext.Provider value={{ ...values }}>
       {children}
     </TaskContext.Provider>
-  )
-}
-
+  );
+};
