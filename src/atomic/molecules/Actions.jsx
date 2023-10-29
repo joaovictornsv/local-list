@@ -59,7 +59,7 @@ export const Actions = ({ onEdit, onDelete, onPin, alreadyPinned }) => {
           {alreadyPinned && (
             <FontAwesomeIcon
               icon={faSlash}
-              className="pointer-events-none absolute right-1/2 top-2 h-3 translate-x-1/2 -rotate-90 transform"
+              className="pointer-events-none absolute right-1/2 top-1.5 h-3 translate-x-1/2 -rotate-90 transform text-zinc-400"
               onClick={onClickToPin}
             />
           )}

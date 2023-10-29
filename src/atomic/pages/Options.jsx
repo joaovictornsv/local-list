@@ -48,7 +48,7 @@ export const Options = () => {
               <p className="text-sm text-zinc-400">
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 Choose your default item to add when you press "Enter" on the
-                home page form
+                home page form.
               </p>
             </div>
 
@@ -108,7 +108,7 @@ export const Options = () => {
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-semibold text-zinc-200">About</h2>
               <p className="text-sm text-zinc-400">
-                More information about this project
+                More information about this project.
               </p>
             </div>
 

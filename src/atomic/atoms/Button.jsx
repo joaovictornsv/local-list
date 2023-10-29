@@ -27,9 +27,8 @@ const buttonClassNames = tv({
         'text-zinc-200 hover:text-zinc-200 border-none bg-red-600 focus:outline-none transition-colors duration-75 hover:bg-red-700',
     },
     size: {
-      sm: 'py-1 px-2',
-      md: 'py-2 px-2',
-      lg: 'py-3 px-3',
+      sm: 'py-1 px-1.5',
+      md: 'py-1.5 px-2',
     },
     disabled: {
       true: 'opacity-50 pointer-events-none',
