@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: zcloud-ws/zcloud-deploy-action@main
-        with:
-          user-token: dpcygbrajjt2fhcx2-wiqttcjnje6dsgiqj
-          env: joaovictornsv-local-list-cli-production
-          extra-args: "--env-var ENV1=VAL1 --env-var ENV2=VAL2"
+      - name: zcloud install
+        run: curl -s https://gh.zcloud.ws/scripts/zcloud-install.sh | sh -
+
+      - name: zcloud deploy
+        run: ./zcloud deploy --user-token dpcygbrajjt2fhcx2-wiqttcjnje6dsgiqj --env joaovictornsv-local-list-cli-production
