@@ -1,0 +1,15 @@
+name: zCloud CLI test
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  deploy-apps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: zcloud install
+        run: curl -s https://gh.zcloud.ws/scripts/zcloud-install.sh | sh -
+
+      - name: zcloud git
+        run: ./zcloud git
