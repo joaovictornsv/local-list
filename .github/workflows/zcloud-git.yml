@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - uses: zcloud-ws/zcloud-deploy-action@main
-      #   with:
-      #     user-token: aszkgzh369gnbkt45-lrguzqdzmfwuku86v
-      #     env: joaovictornsv-local-list-cli-production
-      # - uses: zcloud-ws/zcloud-deploy-action@main
-      #   with:
-      #     user-token: aszkgzh369gnbkt45-lrguzqdzmfwuku86v
-      #     env: joaovictornsv-local-list-cli-2-production
+      - uses: zcloud-ws/zcloud-deploy-action@main
+        with:
+          user-token: aszkgzh369gnbkt45-lrguzqdzmfwuku86v
+          env: joaovictornsv-local-list-cli-production
+      - uses: zcloud-ws/zcloud-deploy-action@main
+        with:
+          user-token: aszkgzh369gnbkt45-lrguzqdzmfwuku86v
+          env: joaovictornsv-local-list-cli-2-production
