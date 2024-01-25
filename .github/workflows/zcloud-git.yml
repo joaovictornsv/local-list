@@ -12,3 +12,4 @@ jobs:
         with:
           user-token: ${{ secrets.ZCLOUD_USER_TOKEN }}
           env: joaovictornsv-local-list-dev
+          dir: .
