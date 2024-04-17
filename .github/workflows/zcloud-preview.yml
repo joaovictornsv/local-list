@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: zcloud-ws/zcloud-deploy-action@main
         with:
-          user-token: ${{ secrets.ZCLOUD_USER_TOKEN }}
+          user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
           dir: .
           cli-extra-args: '--app local-list-cli --create'
