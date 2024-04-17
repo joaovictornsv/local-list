@@ -16,6 +16,7 @@ COPY --chown=node:node . /workspace/app
 # Install only production dependencies, optimizing the build process, and clean npm cache.
 RUN npm ci --only=production && npm run build && npm cache clean --force
 
+
 # --------------------> The production image
 # Again, use the Node.js image based on Debian Bullseye for the production phase.
 FROM node:alpine
