@@ -1,0 +1,46 @@
+# Versioning configuration files (git, svn, etc.)
+.git
+.svn
+
+# Build files
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Environment files and directories
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Operating system-specific local dependencies
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Package dependencies and cache files
+.npm
+.pnpm
+.pnp
+node_modules
+dist
+
+# Compilation files
+*.log
+*.log*
+*.swp
+*.tgz
+*.zip
+*.gz
