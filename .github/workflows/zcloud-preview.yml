@@ -12,5 +12,5 @@ jobs:
         with:
           user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
           dir: .
-          env: "{{ github.head_ref }}"
+          env: ${{ GITHUB_HEAD_REF }}
           cli-extra-args: '--app local-list-cli --create'
