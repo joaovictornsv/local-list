@@ -1,0 +1,15 @@
+name: zCloud CLI Preview
+on:
+  pull_request:
+    branches: ['main']
+
+jobs:
+  deploy-apps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: zcloud-ws/zcloud-deploy-action@main
+        with:
+          user-token: ${{ secrets.ZCLOUD_USER_TOKEN }}
+          dir: .
+          cli-extra-args: '--app local-list-cli --create'
