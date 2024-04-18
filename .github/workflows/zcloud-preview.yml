@@ -11,6 +11,6 @@ jobs:
       - uses: zcloud-ws/zcloud-deploy-action@main
         with:
           user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
+          app: local-list-cli
           dir: .
-          env: ${{ github.head_ref }}
-          cli-extra-args: '--app local-list-cli --create'
+          cli-extra-args: '--zclouds 2 --create'
