@@ -14,6 +14,5 @@ jobs:
       - uses: zcloud-ws/zcloud-deploy-action@main
         with:
           user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
-          app: local-list-cli
           dir: .
-          cli-extra-args: '--zclouds 2 --create'
+          cli-extra-args: '--app local-list-cli --zclouds 2 --create'
