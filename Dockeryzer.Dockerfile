@@ -3,7 +3,6 @@
 # Customization suggestion: You can change the base image to a different version of Node.js, such as 'node:slim' or 'node:alpine', if necessary.
 FROM node:alpine AS builder
 
-
 # Set the 'node:node' user to run subsequent commands, ensuring a secure and restricted environment.
 USER node:node
 
