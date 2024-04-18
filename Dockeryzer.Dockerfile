@@ -10,6 +10,7 @@ USER node:node
 # Customization suggestion: If your application's working directory is different, you can modify it by changing the value of the WORKDIR variable.
 WORKDIR /workspace/app
 
+
 # Copy all files from the current host directory to the application's working directory in the container.
 COPY --chown=node:node . /workspace/app
 
