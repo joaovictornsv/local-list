@@ -5,6 +5,9 @@ on:
 
 jobs:
   deploy-apps:
+    env:
+      __ZCLOUD_INTERNAL_API_CLIENT_URI: 'https://api.zcloud.land'
+      __ZCLOUD_INTERNAL_ENV: 'staging'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
