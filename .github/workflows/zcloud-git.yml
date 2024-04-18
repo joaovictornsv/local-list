@@ -5,11 +5,14 @@ on:
 
 jobs:
   deploy-apps:
+    env:
+      __ZCLOUD_INTERNAL_API_CLIENT_URI: 'https://api.zcloud.land'
+      __ZCLOUD_INTERNAL_ENV: 'staging'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: zcloud-ws/zcloud-deploy-action@main
         with:
-          user-token: ${{ secrets.ZCLOUD_USER_TOKEN }}
-          env: joaovictornsv-local-list-dev
+          user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
+          env: joaovictornsv-staging-3-local-list-cli-production
           dir: .
