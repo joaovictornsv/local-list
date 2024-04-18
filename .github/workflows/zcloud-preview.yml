@@ -15,5 +15,4 @@ jobs:
         with:
           user-token: ${{ secrets.ZCLOUD_USER_TOKEN_STAGING }}
           app: local-list-cli
-          dir: .
           cli-extra-args: '--create'
