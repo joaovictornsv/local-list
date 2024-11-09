@@ -3,9 +3,6 @@
 # Customization suggestion: You can change the base image to a different version of Node.js, such as 'node:slim' or 'node:alpine', if necessary.
 FROM node:alpine AS builder
 
-# Set the 'node:node' user to run subsequent commands, ensuring a secure and restricted environment.
-USER node:node
-
 # Set the working directory for the application in the build phase.
 # Customization suggestion: If your application's working directory is different, you can modify it by changing the value of the WORKDIR variable.
 WORKDIR /workspace/app
@@ -22,9 +19,6 @@ FROM node:alpine
 
 # Copy the compiled files from the build phase to the '/app' directory in the container.
 COPY --from=builder --chown=node:node /workspace/app/dist /app
-
-# Set the default user to run subsequent commands.
-USER node
 
 # Set the working directory for the application in the production phase.
 WORKDIR /app
