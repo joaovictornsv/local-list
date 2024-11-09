@@ -2,7 +2,6 @@
 .git
 .svn
 
-
 # Build files
 node_modules/
 npm-debug.log
