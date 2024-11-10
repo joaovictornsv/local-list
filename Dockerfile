@@ -1,35 +1,29 @@
-# Etapa 1: Construção do projeto
-FROM node:18 AS build
+# Etapa 1: Construção da imagem com as dependências
+FROM node:18-alpine AS build
 
-# Diretório de trabalho no contêiner
+# Definir diretório de trabalho
 WORKDIR /app
 
-# Copia o package.json e o package-lock.json (ou yarn.lock) para instalar as dependências
-COPY package*.json ./
+# Copiar o package.json e package-lock.json para o contêiner
+COPY package.json package-lock.json ./
 
-# Instala as dependências
+# Instalar as dependências do projeto
 RUN npm install
 
-# Copia todos os arquivos do projeto para o contêiner
+# Copiar o restante dos arquivos do projeto
 COPY . .
 
-# Executa o build do projeto Vite
+# Rodar o build do Vite.js
 RUN npm run build
 
-# Etapa 2: Configuração do ambiente de produção
-FROM node:18-slim
+# Etapa 2: Servir a aplicação
+FROM nginx:alpine
 
-# Diretório de trabalho no contêiner
-WORKDIR /app
+# Copiar o build do Vite.js para o diretório de arquivos estáticos do nginx
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Instala o servidor estático para servir o conteúdo construído
-RUN npm install -g serve
+# Expor a porta 80 do nginx
+EXPOSE 80
 
-# Copia apenas os arquivos necessários para o ambiente de produção
-COPY --from=build /app/dist /app/dist
-
-# Expondo a porta para o servidor estático
-EXPOSE 3000
-
-# Comando para iniciar o servidor
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Rodar o nginx em modo foreground
+CMD ["nginx", "-g", "daemon off;"]
