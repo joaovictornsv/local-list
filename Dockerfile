@@ -1,29 +1,34 @@
-# Etapa 1: Construção da imagem com as dependências
-FROM node:18-alpine AS build
+# Etapa 1: Construção
+# Use uma imagem Node.js oficial como base
+FROM node:18 AS build
 
-# Definir diretório de trabalho
+# Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copiar o package.json e package-lock.json para o contêiner
-COPY package.json package-lock.json ./
+# Copie o package.json e o package-lock.json (se existir)
+COPY package*.json ./
 
-# Instalar as dependências do projeto
+# Instale as dependências do projeto
 RUN npm install
 
-# Copiar o restante dos arquivos do projeto
+# Copie o restante do código do projeto
 COPY . .
 
-# Rodar o build do Vite.js
+# Execute o build do projeto
 RUN npm run build
 
-# Etapa 2: Servir a aplicação
+# Etapa 2: Servir
+# Use uma imagem Nginx oficial para servir o conteúdo estático
 FROM nginx:alpine
 
-# Copiar o build do Vite.js para o diretório de arquivos estáticos do nginx
+# Copie os arquivos de build para o diretório padrão do Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expor a porta 80 do nginx
+# Copie o arquivo de configuração do Nginx, se necessário
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponha a porta em que o Nginx está rodando
 EXPOSE 80
 
-# Rodar o nginx em modo foreground
+# Comando para iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
